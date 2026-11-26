@@ -22,7 +22,7 @@ export function App() {
   return (
     <HashRouter>
       <ScrollManager />
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col pb-24 md:pb-0">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-[#0F766E] focus:px-4 focus:py-2 focus:font-mono-tech focus:text-xs focus:text-white"

@@ -62,25 +62,25 @@ export const ProjectsPage: React.FC = () => {
 
   return (
     <div>
-      {/* Projects Page Sub-Header + Chapter Switcher */}
-      <div className="border-b border-[#E4E1D8] bg-white/80">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+      {/* Projects Page Sub-Header + Sticky Mobile Chapter Pill Rail */}
+      <div className="border-b border-[#E4E1D8] bg-white/85">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <span className="font-mono-tech text-xs font-semibold uppercase tracking-[0.14em] text-[#0F766E]">
                 Research Projects • Chapters 01–06
               </span>
-              <h1 className="font-serif-display mt-2 text-3xl font-medium tracking-tight text-[#111318] sm:text-4xl">
+              <h1 className="font-serif-display mt-2 text-2xl font-medium tracking-tight text-[#111318] sm:text-4xl">
                 Six questions from voice to clinical trust.
               </h1>
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0 lg:pb-0">
               {PROJECT_CHAPTERS_META.map((ch) => (
                 <button
                   key={ch.id}
                   type="button"
                   onClick={() => scrollToChapter(ch.id)}
-                  className={`rounded-md border px-2.5 py-1.5 font-mono-tech text-[11px] font-medium transition-colors ${
+                  className={`shrink-0 rounded-full border px-3 py-1.5 font-mono-tech text-[11px] font-medium transition-colors lg:rounded-md lg:px-2.5 ${
                     activeId === ch.id
                       ? 'border-[#0F766E] bg-[#0F766E] text-white'
                       : 'border-[#E4E1D8] bg-[#FAF9F6] text-[#434956] hover:border-[#0F766E]'

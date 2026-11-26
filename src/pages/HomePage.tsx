@@ -88,12 +88,12 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
             {PROJECT_CHAPTERS_META.map((ch) => (
               <Link
                 key={ch.id}
                 to={`/projects#${ch.id}`}
-                className="group flex items-center justify-between rounded-xl border border-[#E4E1D8] bg-white px-4 py-3.5 transition-all hover:border-[#0F766E]"
+                className="group flex min-w-[235px] shrink-0 snap-start items-center justify-between rounded-2xl border border-[#E4E1D8] bg-white px-4 py-4 shadow-sm transition-all hover:border-[#0F766E] sm:min-w-0 sm:rounded-xl sm:py-3.5 sm:shadow-none"
               >
                 <div>
                   <span className="font-mono-tech text-[10px] font-semibold text-[#0F766E]">

@@ -26,13 +26,41 @@ export const ExperiencePage: React.FC = () => {
   return (
     <div className="py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* Editorial Hero + Portrait Split */}
-        <section className="grid items-center gap-10 pb-14 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+        {/* Editorial Hero + Portrait Split (Compact native app header on mobile) */}
+        <section className="grid items-center gap-6 pb-10 sm:gap-10 sm:pb-14 lg:grid-cols-12">
+          {/* Mobile Compact Profile Banner (replaces tall portrait stack on phones) */}
+          <div className="flex min-w-0 items-center gap-3.5 rounded-2xl border border-[#E4E1D8] bg-white p-3.5 shadow-sm lg:hidden">
+            {!photoMissing ? (
+              <img
+                src={EXPERIENCE_DETAILS.photoUrl}
+                alt={EXPERIENCE_DETAILS.photoAlt}
+                loading="lazy"
+                onError={() => setPhotoMissing(true)}
+                className="h-20 w-16 shrink-0 rounded-xl object-cover"
+              />
+            ) : (
+              <div className="flex h-20 w-16 shrink-0 items-center justify-center rounded-xl border border-dashed border-[#C9C4B8] bg-[#FAF9F6]">
+                <User className="h-6 w-6 text-[#0F766E]" aria-hidden="true" />
+              </div>
+            )}
+            <div className="min-w-0 flex-1">
+              <span className="block font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[#0F766E]">
+                TCS Research • Sep 2023–Present
+              </span>
+              <div className="mt-0.5 text-sm font-semibold text-[#111318]">
+                Harish Battula
+              </div>
+              <p className="mt-0.5 font-mono-tech text-[10px] leading-snug text-[#6B7280]">
+                {EXPERIENCE_DETAILS.photoCaption}
+              </p>
+            </div>
+          </div>
+
+          <div className="min-w-0 lg:col-span-7">
             <span className="font-mono-tech text-xs font-semibold uppercase tracking-[0.16em] text-[#0F766E]">
               {EXPERIENCE_DETAILS.eyebrow}
             </span>
-            <h1 className="font-serif-display mt-3 text-4xl font-medium leading-[1.08] tracking-[-0.025em] text-[#111318] sm:text-5xl">
+            <h1 className="font-serif-display mt-3 text-3xl font-medium leading-[1.08] tracking-[-0.025em] text-[#111318] sm:text-5xl">
               {EXPERIENCE_DETAILS.headline}
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#434956] sm:text-lg">
@@ -40,29 +68,29 @@ export const ExperiencePage: React.FC = () => {
             </p>
 
             {/* Clean Apple-like Stat Strip */}
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:grid-cols-4">
               {EXPERIENCE_DETAILS.highlights.map((h) => (
                 <div
                   key={h.label}
-                  className="rounded-xl border border-[#E4E1D8] bg-white p-4"
+                  className="rounded-xl border border-[#E4E1D8] bg-white p-3.5 sm:p-4"
                 >
-                  <div className="font-serif-display text-3xl font-medium text-[#111318]">
+                  <div className="font-serif-display text-2xl font-medium text-[#111318] sm:text-3xl">
                     {h.value}
                   </div>
-                  <div className="mt-1 font-mono-tech text-[11px] text-[#6B7280]">{h.label}</div>
+                  <div className="mt-1 font-mono-tech text-[10px] text-[#6B7280] sm:text-[11px]">{h.label}</div>
                 </div>
               ))}
             </div>
 
             {/* Academic Peer Review Badge */}
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#0F766E]/25 bg-[#0F766E]/[0.06] px-4 py-2 font-mono-tech text-xs text-[#0F766E]">
-              <Award className="h-3.5 w-3.5" aria-hidden="true" />
-              Peer Reviewer: IEEE Industrial Application Society (IAS) &amp; Elsevier BSPC
+            <div className="mt-5 inline-flex items-center gap-2 rounded-2xl border border-[#0F766E]/25 bg-[#0F766E]/[0.06] px-3.5 py-2 font-mono-tech text-[11px] text-[#0F766E] sm:mt-6 sm:rounded-full sm:px-4 sm:text-xs">
+              <Award className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              <span>Peer Reviewer: IEEE Industrial Application Society (IAS) &amp; Elsevier BSPC</span>
             </div>
           </div>
 
-          {/* Portrait Frame */}
-          <div className="lg:col-span-5">
+          {/* Desktop Portrait Frame */}
+          <div className="hidden lg:block lg:col-span-5">
             <div className="rounded-2xl border border-[#E4E1D8] bg-white p-3.5 shadow-[0_20px_50px_-30px_rgba(17,19,24,0.28)]">
               {!photoMissing ? (
                 <img
@@ -106,8 +134,8 @@ export const ExperiencePage: React.FC = () => {
           </div>
 
           <div className="mt-7 grid gap-6 lg:grid-cols-12">
-            {/* Left Workstream Selector */}
-            <div className="space-y-2 lg:col-span-5">
+            {/* Workstream Selector: horizontal swipeable pills on mobile, stacked cards on desktop */}
+            <div className="no-scrollbar -mx-2 flex min-w-0 gap-2 overflow-x-auto px-2 pb-1 lg:mx-0 lg:col-span-5 lg:flex-col lg:space-y-2 lg:overflow-visible lg:px-0 lg:pb-0">
               {EXPERIENCE_DETAILS.tcs.workstreams.map((ws) => {
                 const isSelected = ws.id === activeStream.id;
                 return (
@@ -115,17 +143,17 @@ export const ExperiencePage: React.FC = () => {
                     key={ws.id}
                     type="button"
                     onClick={() => setActiveStreamId(ws.id)}
-                    className={`w-full rounded-xl border p-4 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] ${
+                    className={`min-w-[200px] shrink-0 rounded-xl border p-3.5 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] lg:min-w-0 lg:w-full lg:p-4 ${
                       isSelected
-                        ? 'border-[#0F766E] bg-[#0F766E]/[0.05] shadow-sm'
+                        ? 'border-[#0F766E] bg-[#0F766E]/[0.07] shadow-sm'
                         : 'border-[#E4E1D8] bg-[#FAF9F6]/70 hover:border-[#C5C0B2]'
                     }`}
                   >
                     <div className="flex items-center justify-between font-mono-tech text-[10px]">
                       <span className="font-semibold text-[#0F766E]">{ws.code}</span>
-                      <span className="text-[#6B7280]">{ws.venue}</span>
+                      <span className="hidden text-[#6B7280] sm:inline">{ws.venue}</span>
                     </div>
-                    <div className="mt-1.5 text-sm font-semibold text-[#111318] sm:text-base">
+                    <div className="mt-1 text-xs font-semibold text-[#111318] sm:text-base">
                       {ws.title}
                     </div>
                   </button>
@@ -134,7 +162,7 @@ export const ExperiencePage: React.FC = () => {
             </div>
 
             {/* Right Active Workstream Dossier */}
-            <div className="flex flex-col justify-between rounded-xl border border-[#E4E1D8] bg-[#FAF9F6] p-6 lg:col-span-7">
+            <div className="flex min-w-0 flex-col justify-between rounded-xl border border-[#E4E1D8] bg-[#FAF9F6] p-5 sm:p-6 lg:col-span-7">
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E4E1D8] pb-3">
                   <span className="font-mono-tech text-xs font-semibold text-[#0F766E]">
