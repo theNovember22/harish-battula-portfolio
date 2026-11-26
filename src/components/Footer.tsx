@@ -5,7 +5,7 @@ import { PROFILE } from '../data/profile.js';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-[#E4E1D8] bg-[#F2EFE8]/75">
+    <footer className="hidden border-t border-[#E4E1D8] bg-[#F2EFE8]/75 md:block">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-12">
           {/* Column 1: Researcher Identity */}

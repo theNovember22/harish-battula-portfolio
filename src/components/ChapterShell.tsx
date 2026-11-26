@@ -15,7 +15,7 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
     <section
       id={id}
       data-chapter={id}
-      className={`chapter-snap flex items-center border-t border-[#E4E1D8] py-20 sm:py-24 ${
+      className={`chapter-snap flex items-center border-t border-[#E4E1D8] py-8 md:py-24 ${
         tinted ? 'bg-[#F2EFE8]/45' : 'bg-transparent'
       }`}
     >

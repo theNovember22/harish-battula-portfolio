@@ -42,9 +42,11 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.chapter-snap {
-  min-height: 100svh;
-  scroll-snap-align: start;
+@media (min-width: 768px) {
+  .chapter-snap {
+    min-height: 100svh;
+    scroll-snap-align: start;
+  }
 }
 
 .scientific-grid {

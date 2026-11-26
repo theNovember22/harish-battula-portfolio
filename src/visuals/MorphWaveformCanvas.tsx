@@ -127,7 +127,7 @@ export const MorphWaveformCanvas: React.FC = () => {
   return (
     <div
       ref={ref}
-      className="scientific-grid relative h-44 w-full overflow-hidden rounded-xl border border-[#E4E1D8] bg-white/85 sm:h-56 lg:h-64"
+      className="scientific-grid relative h-36 w-full overflow-hidden rounded-xl border border-[#E4E1D8] bg-white/85 sm:h-56 lg:h-64"
     >
       <canvas
         ref={canvasRef}
