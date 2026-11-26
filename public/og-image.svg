@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#FAF9F6" />
+  <rect x="36" y="36" width="1128" height="558" rx="18" fill="#FFFFFF" stroke="#E4E1D8" stroke-width="2" />
+  <text x="88" y="130" fill="#0F766E" font-family="monospace" font-size="20" letter-spacing="4">AI/ML RESEARCHER • TCS RESEARCH</text>
+  <text x="88" y="218" fill="#111318" font-family="Georgia, serif" font-size="60" font-weight="600">Your voice carries</text>
+  <text x="88" y="290" fill="#111318" font-family="Georgia, serif" font-size="60" font-weight="600">your heartbeat.</text>
+  <text x="88" y="358" fill="#434956" font-family="sans-serif" font-size="26">Harish Battula — Speech, Biomedical Signals &amp; Healthcare AI</text>
+  <path d="M88 470 H260 L292 418 L324 512 L356 392 L388 525 L420 442 L452 470 H620 L652 440 L684 495 L716 408 L748 518 L780 452 L812 470 H1112" stroke="#0F766E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="88" y="546" fill="#6B7280" font-family="monospace" font-size="18">INTERSPEECH 2025 • EUSIPCO 2024 &amp; 2026 • 40+ MULTIMODAL PARTICIPANTS</text>
+</svg>
