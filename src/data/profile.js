@@ -26,6 +26,7 @@ export const PROFILE = {
   role: 'AI/ML Researcher',
   affiliation: 'TCS Research',
   location: 'Mumbai, India',
+  researchHubs: 'Pune • Mumbai • Hyderabad',
   email: 'battulav61@gmail.com',
   cvUrl: './Harish_Battula_CV.pdf',
   openTo: 'Open to: AI/ML Research roles, healthcare AI, speech and biosignals',
@@ -149,55 +150,120 @@ export const CHAPTER_06 = {
   ],
 };
 
-export const EDUCATION_DETAILS = [
-  {
-    degree: 'Master of Technology (M.Tech.) — Electrical Engineering',
+export const EDUCATION_PAGE_DATA = {
+  eyebrow: 'Academic Foundation',
+  headline: 'From power-grid time series to clinical human signals.',
+  subline:
+    'Rigorous training in electrical engineering and temporal modeling laid the mathematical groundwork for physiological signal decomposition and healthcare AI.',
+  masters: {
+    degree: 'Master of Technology (M.Tech.)',
+    field: 'Electrical Engineering',
     institution: 'National Institute of Technology Warangal',
     period: '2021 – 2023',
     location: 'Warangal, India',
-    thesis: 'Electrical Load Demand Forecasting Using Machine Learning Techniques',
-    highlights: [
-      'Developed machine learning and deep learning approaches for short-, medium-, and long-term electricity load demand prediction.',
-      'Built strong foundations in time-series modeling, comparative model evaluation, and forecasting horizons.',
+    thesisTitle: 'Electrical Load Demand Forecasting Using Machine Learning Techniques',
+    thesisSummary:
+      'Designed and benchmarked machine learning and deep learning architectures across short-, medium-, and long-term electricity load forecasting horizons—establishing core expertise in sequence modeling, temporal feature engineering, and comparative evaluation.',
+    outcomes: [
+      'Published comparative findings at IEEE IAS Industrial and Commercial Power Systems (I&CPS) Conference 2023, Las Vegas.',
+      'Open-sourced experimental implementations on GitHub (ElectricalLF & harish_STLF).',
     ],
-    relatedLink: {
-      label: 'IEEE IAS I&CPS 2023 Code (ElectricalLF)',
-      url: 'https://github.com/battulaharish2/ElectricalLF',
-    },
+    links: [
+      { label: 'ElectricalLF Repository', url: 'https://github.com/battulaharish2/ElectricalLF' },
+      { label: 'STLF Notebooks', url: 'https://github.com/battulaharish2/harish_STLF' },
+    ],
   },
-  {
-    degree: 'Bachelor of Technology (B.Tech.) — Electrical and Electronics Engineering',
+  bachelors: {
+    degree: 'Bachelor of Technology (B.Tech.)',
+    field: 'Electrical and Electronics Engineering',
     institution: 'R.V.R. & J.C. College of Engineering',
     period: '2015 – 2019',
     location: 'Guntur, India',
-    grade: 'CGPA: 9.17',
-    highlights: [
-      'Undergraduate engineering foundation in electrical systems, signal fundamentals, and quantitative problem solving.',
-    ],
+    cgpa: '9.17',
+    cgpaScale: '/ 10.0',
+    summary:
+      'Undergraduate foundation in signals and systems, circuit analysis, power systems, and quantitative problem solving.',
   },
-];
+  bridgeSteps: [
+    { step: '01', title: 'Signal Fundamentals', detail: 'B.Tech. EEE • R.V.R. & J.C. (9.17 CGPA)' },
+    { step: '02', title: 'Temporal Deep Learning', detail: 'M.Tech. Thesis • NIT Warangal' },
+    { step: '03', title: 'Visual Perception', detail: 'Computer Vision Intern • ZF Technologies' },
+    { step: '04', title: 'Healthcare & Speech AI', detail: 'Researcher • TCS Research' },
+  ],
+};
 
 export const EXPERIENCE_DETAILS = {
+  eyebrow: 'Research & Engineering Career',
+  headline: 'Three years turning raw human signals into clinical evidence.',
   photoUrl: TODO.PHOTO_PATH,
   photoAlt: 'Portrait of Harish Battula, AI/ML Researcher',
+  photoCaption: 'Paris • EUSIPCO 2024 • Peer Reviewer: IEEE IAS & Elsevier BSPC',
   summary:
-    '3+ years of applied research and machine learning experience spanning synchronized physiological data collection, clinical speech processing, graph neural networks, explainable AI, and computer vision.',
+    'At TCS Research since September 2023, my work spans the complete research lifecycle: participant study design, synchronized multimodal sensing, representation learning, explainability, and interactive research prototypes.',
+  highlights: [
+    { value: '3+', label: 'Years in Research' },
+    { value: '40+', label: 'Sync Participants' },
+    { value: '~91%', label: 'Alzheimer’s Set Accuracy' },
+    { value: '4', label: 'Accepted Papers' },
+  ],
   tcs: {
     organization: 'Tata Consultancy Services (TCS) Research',
     role: 'Researcher — Speech Signal Processing and AI for Healthcare',
     period: 'September 2023 – Present',
     locations: 'Pune, Mumbai, Hyderabad, India',
-    contributions: [
-      'Develop and evaluate machine learning and deep learning methods for physiological sensing and clinical speech analysis across problem formulation, data collection, preprocessing, feature extraction, model training, and evaluation.',
-      'Collected synchronized speech, ECG, and PPG recordings from 40+ participants for speech-based heart-rate estimation and multimodal physiological analysis.',
-      'Developed ICA algorithms for breathing-pattern extraction and heart-rate estimation from speech, demonstrating physiologically meaningful differences between resting and heavy physical activity.',
-      'Designed an ASR-to-graph pipeline for Alzheimer’s dementia detection from spontaneous speech, training Graph Neural Networks to ~91% accuracy on the evaluated dataset.',
-      'Built machine learning and deep learning pipelines for dysarthria speech analysis and severity assessment.',
-      'Investigated heart rate as a physiological proxy for confidence in spoken speech (accepted at INTERSPEECH 2025).',
-      'Developed facial landmark-based emotion recognition approaches and interactive Streamlit and FastAPI research prototypes; presented research at INTERSPEECH and EUSIPCO.',
-      'Analyzed phonocardiogram (PCG) audio signals to detect murmurs, distinguish normal from abnormal heartbeats, and investigate acoustic indicators associated with coronary artery disease (CAD).',
-      'Applied SHAP and LIME to explain model predictions and relate influential signal features to physiological significance.',
-      'Contribute peer reviews for IEEE Industrial Application Society (IAS) and Elsevier’s Biomedical Signal Processing and Control (BSPC).',
+    workstreams: [
+      {
+        id: 'sensing',
+        code: 'STREAM 01',
+        title: 'Synchronized Physiological Sensing & ICA',
+        venue: 'EUSIPCO 2024 • INTERSPEECH 2025',
+        problem:
+          'Public speech corpora lack time-locked cardiac ground truth needed to test whether speech carries autonomic markers.',
+        approach:
+          'Collected synchronized speech, ECG, and PPG recordings from 40+ participants; developed ICA algorithms extracting breathing patterns and heart rate across rest and heavy exercise, and evaluated heart rate as a confidence proxy.',
+        outcome:
+          'Demonstrated physiologically meaningful separation between resting and heavy activity conditions; accepted at EUSIPCO 2024 and INTERSPEECH 2025.',
+        tags: ['40+ Participants', 'Speech + ECG + PPG', 'ICA', 'Heart-Rate Estimation'],
+      },
+      {
+        id: 'neurological',
+        code: 'STREAM 02',
+        title: 'Neurological Speech & Graph Neural Networks',
+        venue: 'EUSIPCO 2026 • Clinical Speech',
+        problem:
+          'Capturing structural cognitive decline and motor-speech severity from spontaneous utterances without manual clinical transcription.',
+        approach:
+          'Built an automated ASR-to-graph pipeline turning spontaneous speech transcripts into graph representations for Graph Neural Networks (PyTorch Geometric), alongside ML/DL pipelines for dysarthria severity assessment.',
+        outcome:
+          'Achieved ~91% accuracy on the evaluated Alzheimer’s speech dataset; accepted at EUSIPCO 2026 (Bruges, Belgium).',
+        tags: ['ASR-to-Graph', 'PyTorch Geometric', 'GNN', 'Whisper', 'wav2vec2', 'Dysarthria'],
+      },
+      {
+        id: 'cardiac',
+        code: 'STREAM 03',
+        title: 'Cardiac Auscultation (PCG) & CAD Acoustics',
+        venue: 'Heart Sound Diagnostics',
+        problem:
+          'Screening heart-valve abnormalities and acoustic indicators of coronary artery disease (CAD) directly from auscultation audio.',
+        approach:
+          'Analyzed phonocardiogram (PCG) recordings to detect cardiac murmurs, distinguish normal from abnormal heartbeats, and characterize acoustic indicators associated with CAD.',
+        outcome:
+          'Expanded cardiac sensing capabilities beyond speech-derived proxies into direct mechanical heart-sound modeling and public research notes.',
+        tags: ['PCG Audio', 'Murmur Detection', 'CAD Indicators', 'Time-Frequency Analysis'],
+      },
+      {
+        id: 'xai-prototypes',
+        code: 'STREAM 04',
+        title: 'Explainable AI, Prototypes & Peer Review',
+        venue: 'SHAP • LIME • IEEE IAS & Elsevier BSPC',
+        problem:
+          'Ensuring stakeholders and clinicians can verify why a model flags a physiological recording—and interact with live prototypes.',
+        approach:
+          'Applied SHAP and LIME to link influential features back to physiological significance, developed facial landmark emotion recognition pipelines, and shipped interactive Streamlit and FastAPI research prototypes.',
+        outcome:
+          'Communicated findings to internal stakeholders, presented at INTERSPEECH/EUSIPCO, and contributed peer reviews for IEEE IAS and Elsevier BSPC.',
+        tags: ['SHAP', 'LIME', 'FastAPI', 'Streamlit', 'MediaPipe', 'Peer Review'],
+      },
     ],
   },
   zf: {
@@ -205,16 +271,19 @@ export const EXPERIENCE_DETAILS = {
     role: 'Computer Vision Intern',
     period: 'June 2022 – July 2023',
     location: 'Hyderabad, India',
-    contributions: [
-      'Developed and evaluated computer vision and deep learning approaches for object detection, semantic segmentation, and human pose estimation using Python, OpenCV, and deep learning frameworks.',
-      'Built image and video processing pipelines covering preprocessing, data preparation, model training, evaluation, and application prototyping.',
+    summary:
+      'Built end-to-end visual perception pipelines using Python, OpenCV, and deep learning frameworks prior to joining TCS Research.',
+    pillars: [
+      { title: 'Object Detection', detail: 'Model training & evaluation on visual scenes' },
+      { title: 'Semantic Segmentation', detail: 'Pixel-level scene parsing & preprocessing' },
+      { title: 'Human Pose Estimation', detail: 'Keypoint tracking & video pipeline prototyping' },
     ],
   },
   skillGroups: [
-    { group: 'Programming & ML', items: 'Python • PyTorch • TensorFlow/Keras • scikit-learn • model training & evaluation' },
-    { group: 'Biomedical Signals & Time Series', items: 'Speech & audio processing • ECG, PCG, PPG preprocessing • breathing-pattern extraction • heart-rate estimation • ICA • time-series forecasting' },
-    { group: 'Graph & Speech Models', items: 'Graph neural networks • PyTorch Geometric • ASR • Whisper • wav2vec2 • Librosa • SoundFile • Hugging Face • BERT' },
-    { group: 'Vision & Research Tools', items: 'OpenCV • MediaPipe • facial landmarks • object detection • segmentation • pose estimation • Git • Linux • Jupyter • CUDA • Streamlit • FastAPI' },
+    { group: 'Programming & ML', items: ['Python', 'PyTorch', 'TensorFlow / Keras', 'scikit-learn', 'Model Evaluation'] },
+    { group: 'Biomedical Signals & Time Series', items: ['Speech Processing', 'ECG / PPG / PCG', 'Breathing Extraction', 'Heart-Rate Estimation', 'ICA', 'Time-Series Forecasting'] },
+    { group: 'Graph & Speech Models', items: ['Graph Neural Networks', 'PyTorch Geometric', 'ASR', 'Whisper', 'wav2vec2', 'Librosa', 'SoundFile', 'Hugging Face', 'BERT'] },
+    { group: 'Vision, XAI & Engineering', items: ['OpenCV', 'MediaPipe', 'Object Detection', 'Segmentation', 'Pose Estimation', 'SHAP', 'LIME', 'CUDA', 'Linux', 'Git', 'FastAPI', 'Streamlit'] },
   ],
 };
 
@@ -226,6 +295,13 @@ export const PUBLICATIONS = [
     year: 2026,
     location: 'Bruges, Belgium',
     status: 'Accepted',
+    bibtex: `@inproceedings{battula2026alzheimers,
+  title={Alzheimer's Dementia Detection from Spontaneous Speech Using Graph Neural Networks},
+  author={Battula, Harish and others},
+  booktitle={Proceedings of the European Signal Processing Conference (EUSIPCO)},
+  year={2026},
+  address={Bruges, Belgium}
+}`,
     links: [
       { label: 'Scholar', url: 'https://scholar.google.com/citations?user=jEgWu88AAAAJ&hl=en&oi=ao' },
       { label: 'PDF (TODO)', url: TODO.EUSIPCO_2026_PDF },
@@ -239,6 +315,13 @@ export const PUBLICATIONS = [
     year: 2025,
     location: 'Rotterdam, Netherlands',
     status: 'Accepted',
+    bibtex: `@inproceedings{battula2025confidence,
+  title={Heart Rate as a Proxy Measure to Assess Human Confidence in Spoken Speech},
+  author={Battula, Harish and Deshpande, Gauri and Gudipalli, Yagna and Patel, Sachin},
+  booktitle={Proceedings of INTERSPEECH},
+  year={2025},
+  address={Rotterdam, Netherlands}
+}`,
     links: [
       { label: 'Scholar', url: 'https://scholar.google.com/citations?user=jEgWu88AAAAJ&hl=en&oi=ao' },
       { label: 'Conference Note', url: 'https://battulaharish2.github.io/research-journal/interspeech-2025/index.html' },
@@ -252,6 +335,13 @@ export const PUBLICATIONS = [
     year: 2024,
     location: 'Lyon, France',
     status: 'Accepted',
+    bibtex: `@inproceedings{battula2024exercise,
+  title={Heart Rate from Read-Speech Influenced by Physical Exercise},
+  author={Battula, Harish and Deshpande, Gauri and Patel, Sachin and Schuller, Bj{\\"o}rn W.},
+  booktitle={Proceedings of the European Signal Processing Conference (EUSIPCO)},
+  year={2024},
+  address={Lyon, France}
+}`,
     links: [
       { label: 'Scholar', url: 'https://scholar.google.com/citations?user=jEgWu88AAAAJ&hl=en&oi=ao' },
       { label: 'Conference Note', url: 'https://battulaharish2.github.io/research-journal/eusipco-2024/index.html' },
@@ -265,6 +355,13 @@ export const PUBLICATIONS = [
     year: 2023,
     location: 'Las Vegas, USA',
     status: 'Accepted',
+    bibtex: `@inproceedings{battula2023comparative,
+  title={A Comparative Study of Forecasting Problems on Electrical Load Timeseries Data using Deep Learning Techniques},
+  author={Battula, Harish and others},
+  booktitle={IEEE IAS Industrial and Commercial Power Systems Technical Conference (I\\&CPS)},
+  year={2023},
+  address={Las Vegas, NV, USA}
+}`,
     links: [
       { label: 'Code (GitHub)', url: 'https://github.com/battulaharish2/ElectricalLF' },
       { label: 'Scholar', url: 'https://scholar.google.com/citations?user=jEgWu88AAAAJ&hl=en&oi=ao' },
@@ -274,8 +371,14 @@ export const PUBLICATIONS = [
 ];
 
 export const CHAPTER_09_CONTACT = {
-  code: 'CONTACT',
+  code: 'CORRESPONDENCE',
   closingLine: 'Working on something where signals meet medicine? Let’s talk.',
   subline:
-    'Whether you are exploring speech biomarkers, multimodal clinical ML, or AI/ML research roles, I would be glad to connect.',
+    'I welcome conversations with AI/ML research labs, healthcare AI groups, applied science teams, and university collaborators working at the intersection of speech, biosignals, and trustworthy machine learning.',
+  topics: [
+    'Speech & Acoustic Biomarkers',
+    'Synchronized Physiological Sensing',
+    'Graph & Multimodal Health ML',
+    'Uncertainty & Disease Progression',
+  ],
 };
