@@ -3,8 +3,13 @@ import { motion } from 'framer-motion';
 import { ArrowDownRight, FileDown, FlaskConical } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 import { HeroVisual } from '../components/HeroVisual';
+import { PageRoute } from '../lib/router';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  onNavigate?: (route: PageRoute) => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
     <section id="top" className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -68,7 +73,13 @@ export const Hero: React.FC = () => {
             {/* Primary CTAs */}
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <a
-                href="#selected-research"
+                href="#/research"
+                onClick={(e) => {
+                  if (onNavigate) {
+                    e.preventDefault();
+                    onNavigate('/research');
+                  }
+                }}
                 className="inline-flex items-center gap-2 rounded-lg bg-[#111318] px-5 py-3 font-mono-tech text-xs font-semibold uppercase tracking-[0.1em] text-white transition-all hover:-translate-y-0.5 hover:bg-[#0F766E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]"
               >
                 View Research

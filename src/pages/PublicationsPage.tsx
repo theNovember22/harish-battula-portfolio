@@ -1,27 +1,90 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, MapPin } from 'lucide-react';
-import { RESEARCH_TIMELINE } from '../data/experience';
+import { ArrowUpRight, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
 import { PUBLICATIONS } from '../data/publications';
-import { SectionHeader } from '../components/SectionHeader';
+import { RESEARCH_TIMELINE } from '../data/experience';
 import { PublicationCard } from '../components/PublicationCard';
+import { PageHeader, PagePager } from '../components/PageChrome';
+import { SectionHeader } from '../components/SectionHeader';
 import { PROFILE } from '../data/profile';
+import { PageRoute } from '../lib/router';
 
-export const TimelineAndPublications: React.FC = () => {
+interface PublicationsPageProps {
+  onNavigate: (route: PageRoute) => void;
+}
+
+const VENUE_FILTERS = ['ALL', 'EUSIPCO', 'INTERSPEECH', 'IEEE IAS'] as const;
+
+export const PublicationsPage: React.FC<PublicationsPageProps> = ({ onNavigate }) => {
+  const [venueFilter, setVenueFilter] = useState<(typeof VENUE_FILTERS)[number]>('ALL');
   const [expandedYear, setExpandedYear] = useState<string>('2026');
 
+  const filteredPubs =
+    venueFilter === 'ALL'
+      ? PUBLICATIONS
+      : PUBLICATIONS.filter((p) => p.venueShort.toUpperCase().includes(venueFilter));
+
   return (
-    <>
-      {/* Research Timeline Section */}
-      <section id="timeline" className="py-16 sm:py-20">
+    <div>
+      <PageHeader
+        sectionTag="03 // Peer-Reviewed Literature & Chronology"
+        title="Publications & Research Timeline"
+        lead="Accepted research proceedings across speech processing, physiological sensing, healthcare AI, and deep time-series modeling—with copyable BibTeX citations."
+        metaRight={
+          <a
+            href={PROFILE.links.scholar}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-[#0F766E] bg-white px-4 py-2.5 font-mono-tech text-xs font-semibold text-[#0F766E] transition-colors hover:bg-[#0F766E] hover:text-white"
+          >
+            Google Scholar Profile
+            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+        }
+      />
+
+      {/* Publications Library */}
+      <section className="py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-7 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {VENUE_FILTERS.map((filter) => (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() => setVenueFilter(filter)}
+                  className={`rounded-md border px-3 py-1.5 font-mono-tech text-xs font-medium transition-colors ${
+                    venueFilter === filter
+                      ? 'border-[#111318] bg-[#111318] text-white'
+                      : 'border-[#E3E0D6] bg-white text-[#434956] hover:border-[#0F766E]'
+                  }`}
+                >
+                  {filter === 'ALL' ? `All Venues (${PUBLICATIONS.length})` : filter}
+                </button>
+              ))}
+            </div>
+            <span className="font-mono-tech text-xs text-[#6B7280]">
+              Showing {filteredPubs.length} of {PUBLICATIONS.length} accepted papers
+            </span>
+          </div>
+
+          <div className="grid gap-5">
+            {filteredPubs.map((pub, idx) => (
+              <PublicationCard key={pub.id} pub={pub} index={idx} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Research Timeline */}
+      <section className="border-t border-[#E3E0D6] bg-[#F3F1EA]/55 py-14 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            index="05"
+            index="TIMELINE"
             eyebrow="Chronology"
-            title="Research Timeline"
-            subtitle="Key milestones from NIT Warangal and TCS Research through INTERSPEECH and EUSIPCO acceptances. Click any year to inspect details."
+            title="Research Milestones (2023 – Present)"
+            subtitle="Click any year to expand milestone details."
           />
 
-          {/* Horizontal selector on desktop / stack on mobile */}
           <div className="grid gap-3 md:grid-cols-5">
             {RESEARCH_TIMELINE.map((milestone) => {
               const isOpen = expandedYear === milestone.year;
@@ -36,7 +99,7 @@ export const TimelineAndPublications: React.FC = () => {
                   className={`flex flex-col justify-between rounded-xl border p-4 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] ${
                     isOpen
                       ? 'border-[#0F766E] bg-white shadow-[0_12px_28px_-18px_rgba(15,118,110,0.35)]'
-                      : 'border-[#E3E0D6] bg-white/80 hover:border-[#0F766E]/50'
+                      : 'border-[#E3E0D6] bg-white/85 hover:border-[#0F766E]/50'
                   }`}
                 >
                   <div>
@@ -66,7 +129,6 @@ export const TimelineAndPublications: React.FC = () => {
             })}
           </div>
 
-          {/* Expanded Milestone Panel */}
           {expandedYear && (() => {
             const active = RESEARCH_TIMELINE.find((m) => m.year === expandedYear);
             if (!active) return null;
@@ -106,33 +168,19 @@ export const TimelineAndPublications: React.FC = () => {
         </div>
       </section>
 
-      {/* Publications Section */}
-      <section id="publications" className="border-y border-[#E3E0D6] bg-[#F3F1EA]/55 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            index="06"
-            eyebrow="Peer-Reviewed Literature"
-            title="Publications"
-            subtitle="Accepted conference papers across speech processing, physiological sensing, healthcare AI, and deep time-series modeling."
-            rightSlot={
-              <a
-                href={PROFILE.links.scholar}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-[#0F766E] bg-white px-4 py-2 font-mono-tech text-xs font-semibold text-[#0F766E] transition-colors hover:bg-[#0F766E] hover:text-white"
-              >
-                Google Scholar Profile ↗
-              </a>
-            }
-          />
-
-          <div className="grid gap-5">
-            {PUBLICATIONS.map((pub, idx) => (
-              <PublicationCard key={pub.id} pub={pub} index={idx} />
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+      <PagePager
+        prev={{
+          label: 'Signal Lab',
+          subtitle: 'Interactive biomedical waveforms & open code',
+          route: '/signal-lab',
+        }}
+        next={{
+          label: 'Experience & Toolbox',
+          subtitle: 'TCS Research, NIT Warangal & capabilities',
+          route: '/experience',
+        }}
+        onNavigate={onNavigate}
+      />
+    </div>
   );
 };

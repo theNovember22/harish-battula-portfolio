@@ -265,7 +265,7 @@ export const SignalLab: React.FC = () => {
               Related Research Case Study
             </div>
             <a
-              href={`#${spec.relatedProjectId}`}
+              href="#/research"
               className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-[#111318] hover:text-[#0F766E]"
             >
               {spec.relatedProject}

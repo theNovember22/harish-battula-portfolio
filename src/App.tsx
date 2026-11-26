@@ -1,20 +1,35 @@
 import { MotionConfig } from 'framer-motion';
 import { Navbar } from './components/Navbar';
-import { ResearchAtAGlance } from './components/ResearchAtAGlance';
 import { Footer } from './components/Footer';
-import { Hero } from './sections/Hero';
-import { ResearchFocus } from './sections/ResearchFocus';
-import { SignalSection } from './sections/SignalSection';
-import { SelectedResearch } from './sections/SelectedResearch';
-import { ResearchApproach } from './sections/ResearchApproach';
-import { TimelineAndPublications } from './sections/TimelineAndPublications';
-import { ExperienceSection } from './sections/ExperienceSection';
-import { InterestsAndToolbox } from './sections/InterestsAndToolbox';
-import { EducationAndEarlierWork } from './sections/EducationAndEarlierWork';
-import { OpenResearch } from './sections/OpenResearch';
-import { AboutAndContact } from './sections/AboutAndContact';
+import { useHashRouter } from './lib/router';
+import { HomePage } from './pages/HomePage';
+import { ResearchPage } from './pages/ResearchPage';
+import { SignalLabPage } from './pages/SignalLabPage';
+import { PublicationsPage } from './pages/PublicationsPage';
+import { ExperiencePage } from './pages/ExperiencePage';
+import { AboutPage } from './pages/AboutPage';
 
 export function App() {
+  const { route, navigate } = useHashRouter();
+
+  const renderPage = () => {
+    switch (route) {
+      case '/research':
+        return <ResearchPage onNavigate={navigate} />;
+      case '/signal-lab':
+        return <SignalLabPage onNavigate={navigate} />;
+      case '/publications':
+        return <PublicationsPage onNavigate={navigate} />;
+      case '/experience':
+        return <ExperiencePage onNavigate={navigate} />;
+      case '/about':
+        return <AboutPage onNavigate={navigate} />;
+      case '/':
+      default:
+        return <HomePage onNavigate={navigate} />;
+    }
+  };
+
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen flex flex-col">
@@ -25,24 +40,13 @@ export function App() {
           Skip to main content
         </a>
 
-        <Navbar />
+        <Navbar currentRoute={route} onNavigate={navigate} />
 
         <main id="main-content" className="flex-1">
-          <Hero />
-          <ResearchAtAGlance />
-          <ResearchFocus />
-          <SignalSection />
-          <SelectedResearch />
-          <ResearchApproach />
-          <TimelineAndPublications />
-          <ExperienceSection />
-          <InterestsAndToolbox />
-          <EducationAndEarlierWork />
-          <OpenResearch />
-          <AboutAndContact />
+          {renderPage()}
         </main>
 
-        <Footer />
+        <Footer onNavigate={navigate} />
       </div>
     </MotionConfig>
   );
