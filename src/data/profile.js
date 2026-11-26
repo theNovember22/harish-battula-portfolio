@@ -161,6 +161,8 @@ export const EDUCATION_PAGE_DATA = {
     institution: 'National Institute of Technology Warangal',
     period: '2021 – 2023',
     location: 'Warangal, India',
+    cgpa: '8.76',
+    cgpaScale: '/ 10.0',
     thesisTitle: 'Electrical Load Demand Forecasting Using Machine Learning Techniques',
     thesisSummary:
       'Designed and benchmarked machine learning and deep learning architectures across short-, medium-, and long-term electricity load forecasting horizons—establishing core expertise in sequence modeling, temporal feature engineering, and comparative evaluation.',
@@ -186,7 +188,7 @@ export const EDUCATION_PAGE_DATA = {
   },
   bridgeSteps: [
     { step: '01', title: 'Signal Fundamentals', detail: 'B.Tech. EEE • R.V.R. & J.C. (9.17 CGPA)' },
-    { step: '02', title: 'Temporal Deep Learning', detail: 'M.Tech. Thesis • NIT Warangal' },
+    { step: '02', title: 'Temporal Deep Learning', detail: 'M.Tech. EE • NIT Warangal (8.76 CGPA)' },
     { step: '03', title: 'Visual Perception', detail: 'Computer Vision Intern • ZF Technologies' },
     { step: '04', title: 'Healthcare & Speech AI', detail: 'Researcher • TCS Research' },
   ],

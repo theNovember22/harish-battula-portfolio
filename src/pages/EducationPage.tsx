@@ -40,12 +40,30 @@ export const EducationPage: React.FC = () => {
                 </span>
               </div>
 
-              <h2 className="font-serif-display mt-2.5 text-xl font-medium tracking-tight text-[var(--ink-primary)] sm:mt-4 sm:text-3xl">
-                {masters.institution}
-              </h2>
-              <p className="mt-0.5 font-mono-tech text-[11px] font-medium text-[var(--ink-secondary)] sm:text-xs">
-                {masters.degree} — {masters.field}
-              </p>
+              <div className="mt-2.5 flex items-start justify-between gap-3 sm:mt-4">
+                <div className="min-w-0">
+                  <h2 className="font-serif-display text-xl font-medium tracking-tight text-[var(--ink-primary)] sm:text-3xl">
+                    {masters.institution}
+                  </h2>
+                  <p className="mt-0.5 font-mono-tech text-[11px] font-medium text-[var(--ink-secondary)] sm:text-xs">
+                    {masters.degree} — {masters.field}
+                  </p>
+                </div>
+
+                <div className="shrink-0 rounded-xl border border-[var(--border-hairline)] bg-[var(--bg-subtle)] px-3 py-2 text-right sm:px-4 sm:py-2.5">
+                  <span className="font-mono-tech text-[9px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-signal)] sm:text-[10px]">
+                    CGPA
+                  </span>
+                  <div className="mt-0.5 flex items-baseline justify-end gap-0.5 sm:gap-1">
+                    <span className="font-serif-display text-xl font-medium tracking-tight text-[var(--ink-primary)] sm:text-3xl">
+                      {masters.cgpa}
+                    </span>
+                    <span className="font-mono-tech text-[10px] text-[var(--ink-muted)] sm:text-xs">
+                      {masters.cgpaScale}
+                    </span>
+                  </div>
+                </div>
+              </div>
 
               <div className="mt-3 rounded-xl border-l-2 border-[var(--accent-signal)] bg-[var(--bg-subtle)] px-3 py-2.5 sm:mt-6 sm:px-4 sm:py-3.5">
                 <div className="font-mono-tech text-[9.5px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-signal)] sm:text-[10px]">
