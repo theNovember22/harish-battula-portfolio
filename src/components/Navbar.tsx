@@ -1,71 +1,52 @@
-import React from 'react';
-import { FileDown } from 'lucide-react';
-import { CHAPTERS, PROFILE } from '../data/profile.js';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { FileDown, Menu, X } from 'lucide-react';
+import { PROFILE } from '../data/profile.js';
 
-interface NavbarProps {
-  activeChapterId: string;
-  progressRatio: number;
-  onJumpToChapter: (id: string) => void;
-}
+const NAV_LINKS = [
+  { label: 'Home', to: '/' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Education', to: '/education' },
+  { label: 'Experience', to: '/experience' },
+  { label: 'Contact', to: '/contact' },
+];
 
-export const Navbar: React.FC<NavbarProps> = ({
-  activeChapterId,
-  progressRatio,
-  onJumpToChapter,
-}) => {
-  const activeIndex = Math.max(
-    0,
-    CHAPTERS.findIndex((c) => c.id === activeChapterId)
-  );
+export const Navbar: React.FC = () => {
+  const { pathname } = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#E4E1D8]/80 bg-[#FAF9F6]/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <button
-          type="button"
-          onClick={() => onJumpToChapter('hero')}
+    <header className="sticky top-0 z-50 border-b border-[#E4E1D8]/80 bg-[#FAF9F6]/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
+        <Link
+          to="/"
+          onClick={() => setMobileOpen(false)}
           className="font-mono-tech text-xs font-semibold tracking-[0.14em] text-[#111318] transition-colors hover:text-[#0F766E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] rounded px-1 py-0.5 sm:text-sm"
         >
           {PROFILE.name.toUpperCase()}
-        </button>
+        </Link>
 
-        <div className="flex items-center gap-3 sm:gap-5">
-          {/* Chapter Progress Dots */}
-          <nav
-            aria-label="Chapter progress navigation"
-            className="hidden items-center gap-1.5 sm:flex"
-          >
-            {CHAPTERS.map((ch, idx) => {
-              const isActive = ch.id === activeChapterId;
-              const isPassed = idx < activeIndex;
+        {/* Top-right blended navigation links directly left of CV button */}
+        <div className="flex items-center gap-2 md:gap-5">
+          <nav aria-label="Primary navigation" className="hidden items-center gap-1 md:flex">
+            {NAV_LINKS.map((item) => {
+              const isActive = pathname === item.to;
               return (
-                <button
-                  key={ch.id}
-                  type="button"
-                  onClick={() => onJumpToChapter(ch.id)}
-                  title={`${ch.code} — ${ch.shortTitle}`}
-                  aria-label={`Jump to chapter ${ch.code}: ${ch.shortTitle}`}
-                  aria-current={isActive ? 'step' : undefined}
-                  className="group relative flex h-6 w-4 items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] rounded"
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`rounded-md px-3 py-1.5 font-mono-tech text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] ${
+                    isActive
+                      ? 'text-[#0F766E] underline decoration-[#0F766E] decoration-2 underline-offset-[6px] font-semibold'
+                      : 'text-[#434956] hover:text-[#111318]'
+                  }`}
                 >
-                  <span
-                    className={`block rounded-full transition-all ${
-                      isActive
-                        ? 'h-2.5 w-2.5 bg-[#0F766E] ring-4 ring-[#0F766E]/15'
-                        : isPassed
-                        ? 'h-1.5 w-1.5 bg-[#0F766E]/55 group-hover:scale-125'
-                        : 'h-1.5 w-1.5 bg-[#C9C4B8] group-hover:bg-[#111318]'
-                    }`}
-                  />
-                </button>
+                  {item.label}
+                </Link>
               );
             })}
           </nav>
-
-          {/* Mobile compact chapter counter */}
-          <span className="font-mono-tech text-[11px] text-[#6B7280] sm:hidden">
-            {String(activeIndex).padStart(2, '0')} / {String(CHAPTERS.length - 1).padStart(2, '0')}
-          </span>
 
           <a
             href={PROFILE.cvUrl}
@@ -76,16 +57,47 @@ export const Navbar: React.FC<NavbarProps> = ({
             <FileDown className="h-3.5 w-3.5" aria-hidden="true" />
             CV
           </a>
+
+          <button
+            type="button"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            className="inline-flex items-center justify-center rounded-md border border-[#E4E1D8] bg-white p-1.5 text-[#111318] transition-colors hover:border-[#0F766E] hover:text-[#0F766E] md:hidden"
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
       </div>
 
-      {/* Thin Reading Progress Line */}
-      <div className="h-[2px] w-full bg-[#ECE9E0]" aria-hidden="true">
-        <div
-          className="h-full bg-[#0F766E] transition-[width] duration-150 ease-out"
-          style={{ width: `${Math.min(100, Math.max(0, progressRatio * 100))}%` }}
-        />
-      </div>
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <nav
+          aria-label="Mobile navigation"
+          className="border-t border-[#E4E1D8] bg-[#FAF9F6] px-4 py-3 md:hidden"
+        >
+          <div className="flex flex-col gap-1">
+            {NAV_LINKS.map((item) => {
+              const isActive = pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setMobileOpen(false)}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`rounded-md px-3 py-2 font-mono-tech text-xs font-medium ${
+                    isActive
+                      ? 'bg-[#0F766E]/10 font-semibold text-[#0F766E]'
+                      : 'text-[#111318] hover:bg-[#F2EFE8]'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+      )}
     </header>
   );
 };

@@ -5,14 +5,11 @@
  */
 
 // ---------------------------------------------------------------------------
-// PLACEHOLDER / TODO LINKS — Replace these as PDFs, repos, and photos become public
+// PLACEHOLDER / TODO LINKS — Replace these as PDFs and repos become public
 // ---------------------------------------------------------------------------
 export const TODO = {
-  /** Place Harish's portrait photo at /public/images/harish.jpg */
   PHOTO_PATH: './images/harish.jpg',
-  /** Replace with a raster 1200x630 PNG if preferred; currently uses /public/og-image.svg */
   OG_IMAGE_PATH: './og-image.svg',
-  /** Add hosted PDF URL once camera-ready proceedings are public */
   EUSIPCO_2026_PDF: null, // TODO: Add EUSIPCO 2026 paper PDF URL
   EUSIPCO_2026_CODE: null, // TODO: Add EUSIPCO 2026 code repository URL
   INTERSPEECH_2025_PDF: null, // TODO: Add INTERSPEECH 2025 paper PDF URL (ISCA Archive)
@@ -47,27 +44,23 @@ export const PROFILE = {
   ],
 };
 
-export const CHAPTERS = [
-  { id: 'hero', code: '00', shortTitle: 'Voice & Heartbeat' },
-  { id: 'speech-hr', code: '01', shortTitle: '40+ Cohort & ICA' },
-  { id: 'confidence', code: '02', shortTitle: 'Vocal Confidence' },
-  { id: 'alzheimers', code: '03', shortTitle: 'Alzheimer’s GNN' },
-  { id: 'stethoscope', code: '04', shortTitle: 'PCG & Dysarthria' },
-  { id: 'trust', code: '05', shortTitle: 'SHAP & Trust' },
-  { id: 'vision', code: '06', shortTitle: 'Where Next' },
-  { id: 'about', code: '07', shortTitle: 'About Harish' },
-  { id: 'publications', code: '08', shortTitle: 'Publications' },
-  { id: 'contact', code: '09', shortTitle: 'Contact' },
-];
-
 export const HERO_CONTENT = {
   eyebrow: 'Harish Battula • AI/ML Researcher • TCS Research',
   headline: 'Your voice carries your heartbeat.',
   subline:
     'Harish Battula, AI/ML researcher, TCS Research. I build models that listen to speech and signals to detect disease earlier.',
-  primaryCta: 'Follow the signal ↓',
+  primaryCta: 'Follow the signal →',
   secondaryCta: 'Download CV',
 };
+
+export const PROJECT_CHAPTERS_META = [
+  { id: 'speech-hr', code: '01', shortTitle: 'Speech → Heart Rate' },
+  { id: 'confidence', code: '02', shortTitle: 'Confidence Proxy' },
+  { id: 'alzheimers', code: '03', shortTitle: 'Alzheimer’s GNN' },
+  { id: 'stethoscope', code: '04', shortTitle: 'PCG & Dysarthria' },
+  { id: 'trust', code: '05', shortTitle: 'SHAP & Trust' },
+  { id: 'vision', code: '06', shortTitle: 'Where Next' },
+];
 
 export const CHAPTER_01 = {
   code: 'CHAPTER 01',
@@ -77,11 +70,6 @@ export const CHAPTER_01 = {
   citationLabel: 'Heart Rate from Read-Speech Influenced by Physical Exercise — EUSIPCO 2024 (Lyon)',
   linkText: 'Read conference note & paper record',
   linkUrl: 'https://battulaharish2.github.io/research-journal/eusipco-2024/index.html',
-  metrics: [
-    { label: 'Participants', value: '40+' },
-    { label: 'Modalities', value: 'Speech + ECG + PPG' },
-    { label: 'Method', value: 'ICA Separation' },
-  ],
 };
 
 export const CHAPTER_02 = {
@@ -153,8 +141,6 @@ export const CHAPTER_06 = {
   question: 'Where is this going?',
   answerFirstPerson:
     'My current work detects disease across speech, ECG, PPG, PCG, and images—but a single snapshot is rarely enough for preventive care. I want to extend this toward multimodal health trajectories over time, developing uncertainty-aware models that learn from sparse or irregularly sampled clinical observations and distinguish true disease progression from treatment effects alongside clinicians.',
-  linkText: 'See background & credentials',
-  linkTarget: '#about',
   milestones: [
     { label: 'Single-Snapshot Detection', detail: 'Speech, ECG, PPG, PCG & Images' },
     { label: 'Multimodal Trajectories', detail: 'Longitudinal disease progression' },
@@ -163,27 +149,73 @@ export const CHAPTER_06 = {
   ],
 };
 
-export const CHAPTER_07 = {
-  code: 'CHAPTER 07',
-  question: 'The person behind the signals.',
+export const EDUCATION_DETAILS = [
+  {
+    degree: 'Master of Technology (M.Tech.) — Electrical Engineering',
+    institution: 'National Institute of Technology Warangal',
+    period: '2021 – 2023',
+    location: 'Warangal, India',
+    thesis: 'Electrical Load Demand Forecasting Using Machine Learning Techniques',
+    highlights: [
+      'Developed machine learning and deep learning approaches for short-, medium-, and long-term electricity load demand prediction.',
+      'Built strong foundations in time-series modeling, comparative model evaluation, and forecasting horizons.',
+    ],
+    relatedLink: {
+      label: 'IEEE IAS I&CPS 2023 Code (ElectricalLF)',
+      url: 'https://github.com/battulaharish2/ElectricalLF',
+    },
+  },
+  {
+    degree: 'Bachelor of Technology (B.Tech.) — Electrical and Electronics Engineering',
+    institution: 'R.V.R. & J.C. College of Engineering',
+    period: '2015 – 2019',
+    location: 'Guntur, India',
+    grade: 'CGPA: 9.17',
+    highlights: [
+      'Undergraduate engineering foundation in electrical systems, signal fundamentals, and quantitative problem solving.',
+    ],
+  },
+];
+
+export const EXPERIENCE_DETAILS = {
   photoUrl: TODO.PHOTO_PATH,
   photoAlt: 'Portrait of Harish Battula, AI/ML Researcher',
-  bio:
-    'I hold an M.Tech. in Electrical Engineering from NIT Warangal, where my thesis investigated deep learning for electrical load demand forecasting, following a B.Tech. in EEE from R.V.R. & J.C. College of Engineering (9.17 CGPA). After interning in computer vision at ZF Technologies, I joined TCS Research in September 2023 and serve as a peer reviewer for IEEE Industrial Application Society (IAS) and Elsevier Biomedical Signal Processing and Control (BSPC).',
-  path: [
-    { period: '2015–2019', role: 'B.Tech. EEE (CGPA 9.17)', org: 'R.V.R. & J.C. College of Engineering' },
-    { period: '2021–2023', role: 'M.Tech. EE • Load Forecasting Thesis', org: 'NIT Warangal' },
-    { period: '2022–2023', role: 'Computer Vision Intern', org: 'ZF Technologies' },
-    { period: 'Sep 2023–Present', role: 'Researcher — Speech & Healthcare AI', org: 'TCS Research' },
-  ],
+  summary:
+    '3+ years of applied research and machine learning experience spanning synchronized physiological data collection, clinical speech processing, graph neural networks, explainable AI, and computer vision.',
+  tcs: {
+    organization: 'Tata Consultancy Services (TCS) Research',
+    role: 'Researcher — Speech Signal Processing and AI for Healthcare',
+    period: 'September 2023 – Present',
+    locations: 'Pune, Mumbai, Hyderabad, India',
+    contributions: [
+      'Develop and evaluate machine learning and deep learning methods for physiological sensing and clinical speech analysis across problem formulation, data collection, preprocessing, feature extraction, model training, and evaluation.',
+      'Collected synchronized speech, ECG, and PPG recordings from 40+ participants for speech-based heart-rate estimation and multimodal physiological analysis.',
+      'Developed ICA algorithms for breathing-pattern extraction and heart-rate estimation from speech, demonstrating physiologically meaningful differences between resting and heavy physical activity.',
+      'Designed an ASR-to-graph pipeline for Alzheimer’s dementia detection from spontaneous speech, training Graph Neural Networks to ~91% accuracy on the evaluated dataset.',
+      'Built machine learning and deep learning pipelines for dysarthria speech analysis and severity assessment.',
+      'Investigated heart rate as a physiological proxy for confidence in spoken speech (accepted at INTERSPEECH 2025).',
+      'Developed facial landmark-based emotion recognition approaches and interactive Streamlit and FastAPI research prototypes; presented research at INTERSPEECH and EUSIPCO.',
+      'Analyzed phonocardiogram (PCG) audio signals to detect murmurs, distinguish normal from abnormal heartbeats, and investigate acoustic indicators associated with coronary artery disease (CAD).',
+      'Applied SHAP and LIME to explain model predictions and relate influential signal features to physiological significance.',
+      'Contribute peer reviews for IEEE Industrial Application Society (IAS) and Elsevier’s Biomedical Signal Processing and Control (BSPC).',
+    ],
+  },
+  zf: {
+    organization: 'ZF Technologies',
+    role: 'Computer Vision Intern',
+    period: 'June 2022 – July 2023',
+    location: 'Hyderabad, India',
+    contributions: [
+      'Developed and evaluated computer vision and deep learning approaches for object detection, semantic segmentation, and human pose estimation using Python, OpenCV, and deep learning frameworks.',
+      'Built image and video processing pipelines covering preprocessing, data preparation, model training, evaluation, and application prototyping.',
+    ],
+  },
   skillGroups: [
-    { group: 'ML & Graphs', items: 'PyTorch • TensorFlow/Keras • Scikit-learn • PyTorch Geometric • GNN • BERT' },
-    { group: 'Speech & Audio', items: 'Whisper • wav2vec2 • ASR • Librosa • SoundFile • Hugging Face' },
-    { group: 'Biosignals', items: 'ECG • PPG • PCG • Breathing-pattern extraction • Heart-rate estimation • ICA' },
-    { group: 'Vision & Stack', items: 'OpenCV • MediaPipe • SHAP • LIME • CUDA • Linux • FastAPI • Streamlit' },
+    { group: 'Programming & ML', items: 'Python • PyTorch • TensorFlow/Keras • scikit-learn • model training & evaluation' },
+    { group: 'Biomedical Signals & Time Series', items: 'Speech & audio processing • ECG, PCG, PPG preprocessing • breathing-pattern extraction • heart-rate estimation • ICA • time-series forecasting' },
+    { group: 'Graph & Speech Models', items: 'Graph neural networks • PyTorch Geometric • ASR • Whisper • wav2vec2 • Librosa • SoundFile • Hugging Face • BERT' },
+    { group: 'Vision & Research Tools', items: 'OpenCV • MediaPipe • facial landmarks • object detection • segmentation • pose estimation • Git • Linux • Jupyter • CUDA • Streamlit • FastAPI' },
   ],
-  linkText: 'Browse peer-reviewed publications',
-  linkTarget: '#publications',
 };
 
 export const PUBLICATIONS = [
@@ -242,8 +274,8 @@ export const PUBLICATIONS = [
 ];
 
 export const CHAPTER_09_CONTACT = {
-  code: 'CHAPTER 09',
+  code: 'CONTACT',
   closingLine: 'Working on something where signals meet medicine? Let’s talk.',
   subline:
-    'Whether you are exploring speech biomarkers, multimodal clinical ML, or applied research roles, I would be glad to connect.',
+    'Whether you are exploring speech biomarkers, multimodal clinical ML, or AI/ML research roles, I would be glad to connect.',
 };
