@@ -35,8 +35,8 @@ src/data/profile.js
 
 Edit text, add PDF/code links, or update CV paths directly in `profile.js` without modifying any React components.
 
-### Placeholders to Fill
-1. **Portrait photo:** Place Harish's portrait at `public/images/harish.jpg` (recommended `800×1000` 4:5 portrait). Until added, the About chapter displays an editorial placeholder frame.
+### Placeholders & Assets
+1. **Portrait photo:** Bundled at `public/images/harish.jpg` (swap with a new photo using the same path if desired).
 2. **Paper PDFs & Code Links:** Fill `EUSIPCO_2026_PDF`, `EUSIPCO_2026_CODE`, `INTERSPEECH_2025_PDF`, `EUSIPCO_2024_PDF`, and `IEEE_IAS_2023_PDF` in the `TODO` block inside `src/data/profile.js`.
 3. **CV PDF:** Currently bundled at `public/Harish_Battula_CV.pdf` — replace with newer versions using the same filename.
 4. **Open Graph Image:** Currently uses `public/og-image.svg` — swap to a `1200×630` PNG (`public/og-image.png`) and update `index.html` if social platforms require raster OG previews.

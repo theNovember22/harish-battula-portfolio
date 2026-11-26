@@ -1,5 +1,0 @@
-Place Harish Battula's portrait photograph at:
-  public/images/harish.jpg
-
-Recommended size: 800x1000 px (4:5 aspect ratio), JPEG or WebP renamed to harish.jpg.
-Until this file is added, the About chapter displays an editorial placeholder frame.

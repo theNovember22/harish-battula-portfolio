@@ -331,7 +331,7 @@ export const CuriosityChapters: React.FC<ChaptersProps> = ({ onJumpToChapter }) 
                   alt={CHAPTER_07.photoAlt}
                   loading="lazy"
                   onError={() => setPhotoMissing(true)}
-                  className="aspect-[4/5] w-full rounded-xl object-cover"
+                  className="aspect-[3/4] w-full rounded-xl object-cover"
                 />
               ) : (
                 <div className="scientific-grid flex aspect-[4/5] w-full flex-col items-center justify-center rounded-xl border border-dashed border-[#C9C4B8] bg-[#FAF9F6] p-6 text-center">
