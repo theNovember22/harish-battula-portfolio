@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  --bg-canvas: #FAF9F6;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F3F1EA;
+  --ink-primary: #111318;
+  --ink-secondary: #434956;
+  --ink-muted: #6B7280;
+  --border-hairline: #E3E0D6;
+  --accent-teal: #0F766E;
+  --accent-teal-dark: #0D5E57;
+  --accent-teal-soft: rgba(15, 118, 110, 0.08);
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg-canvas);
+  color: var(--ink-primary);
+  scroll-padding-top: 5rem;
+}
+
+body {
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(rgba(17, 19, 24, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.font-mono-tech {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.scientific-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(17, 19, 24, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 19, 24, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
