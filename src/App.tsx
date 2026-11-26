@@ -12,7 +12,9 @@ const ScrollManager: React.FC = () => {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     if (!hash) {
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
     }
   }, [pathname, hash]);
   return null;

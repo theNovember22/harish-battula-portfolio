@@ -36,10 +36,11 @@ export const ContactPage: React.FC = () => {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#0F766E]/25 bg-[#0F766E]/8 px-3 py-1 font-mono-tech text-[10px] font-medium text-[#0F766E] sm:text-[11px]">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#0F766E]" />
-                <span>{PROFILE.openTo}</span>
+                <span className="md:hidden">Open to AI/ML Research &amp; Healthcare AI</span>
+                <span className="hidden md:inline">{PROFILE.openTo}</span>
               </div>
 
-              <h1 className="font-serif-display mt-4 text-3xl font-medium leading-[1.08] tracking-[-0.025em] text-[#111318] sm:mt-5 sm:text-5xl">
+              <h1 className="font-serif-display mt-3 text-[28px] font-medium leading-[1.08] tracking-[-0.025em] text-[#111318] sm:mt-5 sm:text-5xl">
                 {CHAPTER_09_CONTACT.closingLine}
               </h1>
 

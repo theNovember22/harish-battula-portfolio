@@ -7,27 +7,31 @@ import { MorphWaveformCanvas } from '../visuals/MorphWaveformCanvas';
 export const HomePage: React.FC = () => {
   return (
     <div>
-      {/* Hero — compact, single-screen on mobile; editorial full-viewport on desktop */}
+      {/* Hero — ultra-clean 1-screen mobile app layout; editorial full-viewport on desktop */}
       <section
         id="hero"
-        className="flex flex-col justify-center py-6 sm:py-10 md:min-h-[calc(100svh-3.75rem)] md:py-12"
+        className="flex flex-col justify-center py-5 sm:py-10 md:min-h-[calc(100svh-3.75rem)] md:py-12"
       >
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="font-mono-tech text-[10px] font-semibold uppercase tracking-[0.14em] text-[#0F766E] sm:text-xs sm:tracking-[0.16em]">
-              {HERO_CONTENT.eyebrow}
+              <span className="md:hidden">AI/ML Researcher • TCS Research</span>
+              <span className="hidden md:inline">{HERO_CONTENT.eyebrow}</span>
             </p>
-            <h1 className="font-serif-display mt-2 text-3xl font-medium leading-[1.08] tracking-[-0.025em] text-[#111318] sm:mt-3 sm:text-6xl lg:text-[66px]">
+            <h1 className="font-serif-display mt-2 text-[32px] font-medium leading-[1.06] tracking-[-0.025em] text-[#111318] sm:mt-3 sm:text-6xl lg:text-[66px]">
               {HERO_CONTENT.headline}
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#434956] sm:mt-4 sm:text-lg">
-              {HERO_CONTENT.subline}
+            <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-[#434956] md:mt-4 md:text-lg">
+              <span className="md:hidden">
+                Models that listen to speech and physiological signals to detect disease earlier.
+              </span>
+              <span className="hidden md:inline">{HERO_CONTENT.subline}</span>
             </p>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3 sm:mt-6 sm:gap-4">
+            <div className="mt-4 flex flex-wrap items-center gap-3 md:mt-6 md:gap-4">
               <Link
                 to="/projects"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#111318] px-4 py-2.5 font-mono-tech text-xs font-semibold tracking-wider text-white transition-colors hover:bg-[#0F766E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] sm:px-5 sm:py-3"
+                className="inline-flex items-center gap-2 rounded-full bg-[#111318] px-4 py-2.5 font-mono-tech text-xs font-semibold tracking-wider text-white transition-colors hover:bg-[#0F766E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] md:rounded-lg md:px-5 md:py-3"
               >
                 {HERO_CONTENT.primaryCta}
               </Link>
@@ -35,7 +39,7 @@ export const HomePage: React.FC = () => {
                 href={PROFILE.cvUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded px-1 py-1 font-mono-tech text-xs font-medium text-[#434956] underline-offset-4 hover:text-[#0F766E] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E]"
+                className="hidden items-center gap-1.5 rounded px-1 py-1 font-mono-tech text-xs font-medium text-[#434956] underline-offset-4 hover:text-[#0F766E] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] md:inline-flex"
               >
                 <FileDown className="h-3.5 w-3.5" aria-hidden="true" />
                 {HERO_CONTENT.secondaryCta}
@@ -44,21 +48,38 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Live Speech-to-Heartbeat Waveform */}
-          <div className="mt-6 sm:mt-10">
+          <div className="mt-5 md:mt-10">
             <MorphWaveformCanvas />
           </div>
 
-          {/* Compact 4-Fact Strip */}
-          <div className="mt-4 grid grid-cols-2 gap-2.5 sm:mt-5 sm:gap-3 sm:grid-cols-4">
+          {/* Mobile: Single compact inline stat strip; Desktop: 4-card grid */}
+          <div className="mt-4 flex items-center justify-between gap-2 rounded-xl border border-[#E4E1D8] bg-white/90 px-3.5 py-2.5 font-mono-tech text-[11px] md:hidden">
+            <div>
+              <span className="font-semibold text-[#111318]">4</span>{' '}
+              <span className="text-[#6B7280]">Papers</span>
+            </div>
+            <span className="text-[#D5D1C5]">•</span>
+            <div>
+              <span className="font-semibold text-[#111318]">40+</span>{' '}
+              <span className="text-[#6B7280]">Cohort</span>
+            </div>
+            <span className="text-[#D5D1C5]">•</span>
+            <div>
+              <span className="font-semibold text-[#0F766E]">~91%</span>{' '}
+              <span className="text-[#6B7280]">AD Set</span>
+            </div>
+          </div>
+
+          <div className="mt-5 hidden grid-cols-4 gap-3 md:grid">
             {PROFILE.quickFacts.map((fact) => (
               <div
                 key={fact.label}
-                className="rounded-lg border border-[#E4E1D8] bg-white/85 px-3 py-2 sm:px-3.5 sm:py-2.5"
+                className="rounded-lg border border-[#E4E1D8] bg-white/85 px-3.5 py-2.5"
               >
-                <div className="font-mono-tech text-[9.5px] uppercase tracking-wider text-[#6B7280] sm:text-[10px]">
+                <div className="font-mono-tech text-[10px] uppercase tracking-wider text-[#6B7280]">
                   {fact.label}
                 </div>
-                <div className="mt-0.5 text-[11px] font-semibold leading-snug text-[#111318] sm:text-[13px]">
+                <div className="mt-0.5 text-[13px] font-semibold leading-snug text-[#111318]">
                   {fact.value}
                 </div>
               </div>
@@ -67,7 +88,7 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Desktop-only Curiosity Arc Directory (Mobile uses bottom pill dock directly) */}
+      {/* Desktop-only Curiosity Arc Directory */}
       <section className="hidden border-t border-[#E4E1D8] bg-[#F2EFE8]/45 py-12 md:block md:py-14">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-6 flex items-end justify-between">

@@ -27,11 +27,11 @@ export const ExperiencePage: React.FC = () => {
   };
 
   return (
-    <div className="py-6 sm:py-12 md:py-16 lg:py-20">
+    <div className="py-5 sm:py-12 md:py-16 lg:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Editorial Hero + Portrait Split */}
-        <section className="grid items-center gap-5 pb-6 sm:gap-10 sm:pb-14 lg:grid-cols-12">
-          {/* Mobile Compact Profile Banner */}
+        <section className="grid items-center gap-4 pb-5 sm:gap-10 sm:pb-14 lg:grid-cols-12">
+          {/* Mobile Compact Profile Header (replaces tall portrait & stat grid) */}
           <div className="flex min-w-0 items-center gap-3.5 rounded-2xl border border-[#E4E1D8] bg-white p-3.5 shadow-sm lg:hidden">
             {!photoMissing ? (
               <img
@@ -39,58 +39,55 @@ export const ExperiencePage: React.FC = () => {
                 alt={EXPERIENCE_DETAILS.photoAlt}
                 loading="lazy"
                 onError={() => setPhotoMissing(true)}
-                className="h-20 w-16 shrink-0 rounded-xl object-cover"
+                className="h-16 w-14 shrink-0 rounded-xl object-cover"
               />
             ) : (
-              <div className="flex h-20 w-16 shrink-0 items-center justify-center rounded-xl border border-dashed border-[#C9C4B8] bg-[#FAF9F6]">
+              <div className="flex h-16 w-14 shrink-0 items-center justify-center rounded-xl border border-dashed border-[#C9C4B8] bg-[#FAF9F6]">
                 <User className="h-6 w-6 text-[#0F766E]" aria-hidden="true" />
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <span className="block font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[#0F766E]">
-                TCS Research • Sep 2023–Present
-              </span>
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[#0F766E]">
+                  TCS Research • 2023–Present
+                </span>
+              </div>
               <div className="mt-0.5 text-base font-semibold text-[#111318]">
                 Harish Battula
               </div>
-              <p className="mt-0.5 font-mono-tech text-[10px] leading-snug text-[#6B7280]">
-                {EXPERIENCE_DETAILS.photoCaption}
-              </p>
+              <div className="mt-1 font-mono-tech text-[10px] text-[#6B7280]">
+                3+ Yrs • 40+ Cohort • 4 Papers • IEEE/BSPC Reviewer
+              </div>
             </div>
           </div>
 
-          <div className="min-w-0 lg:col-span-7">
-            <div className="hidden lg:block">
-              <span className="font-mono-tech text-xs font-semibold uppercase tracking-[0.16em] text-[#0F766E]">
-                {EXPERIENCE_DETAILS.eyebrow}
-              </span>
-              <h1 className="font-serif-display mt-3 text-5xl font-medium leading-[1.08] tracking-[-0.025em] text-[#111318]">
-                {EXPERIENCE_DETAILS.headline}
-              </h1>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[#434956]">
-                {EXPERIENCE_DETAILS.summary}
-              </p>
-            </div>
+          {/* Desktop Hero Text + Stats */}
+          <div className="hidden min-w-0 lg:block lg:col-span-7">
+            <span className="font-mono-tech text-xs font-semibold uppercase tracking-[0.16em] text-[#0F766E]">
+              {EXPERIENCE_DETAILS.eyebrow}
+            </span>
+            <h1 className="font-serif-display mt-3 text-5xl font-medium leading-[1.08] tracking-[-0.025em] text-[#111318]">
+              {EXPERIENCE_DETAILS.headline}
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[#434956]">
+              {EXPERIENCE_DETAILS.summary}
+            </p>
 
-            {/* Clean Stat Strip (compact 4-col on desktop, compact 2x2 on mobile) */}
-            <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:mt-8">
+            <div className="mt-8 grid grid-cols-4 gap-3">
               {EXPERIENCE_DETAILS.highlights.map((h) => (
                 <div
                   key={h.label}
-                  className="rounded-xl border border-[#E4E1D8] bg-white px-2.5 py-2.5 text-center sm:p-4 sm:text-left"
+                  className="rounded-xl border border-[#E4E1D8] bg-white p-4"
                 >
-                  <div className="font-serif-display text-lg font-medium text-[#111318] sm:text-3xl">
+                  <div className="font-serif-display text-3xl font-medium text-[#111318]">
                     {h.value}
                   </div>
-                  <div className="mt-0.5 font-mono-tech text-[9px] leading-tight text-[#6B7280] sm:mt-1 sm:text-[11px]">
-                    {h.label}
-                  </div>
+                  <div className="mt-1 font-mono-tech text-[11px] text-[#6B7280]">{h.label}</div>
                 </div>
               ))}
             </div>
 
-            {/* Academic Peer Review Badge (Desktop) */}
-            <div className="mt-6 hidden items-center gap-2 rounded-full border border-[#0F766E]/25 bg-[#0F766E]/[0.06] px-4 py-2 font-mono-tech text-xs text-[#0F766E] lg:inline-flex">
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#0F766E]/25 bg-[#0F766E]/[0.06] px-4 py-2 font-mono-tech text-xs text-[#0F766E]">
               <Award className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
               <span>Peer Reviewer: IEEE Industrial Application Society (IAS) &amp; Elsevier BSPC</span>
             </div>
@@ -122,8 +119,8 @@ export const ExperiencePage: React.FC = () => {
           </div>
         </section>
 
-        {/* Mobile App Segmented Switcher (keeps mobile clean & zero-bloat) */}
-        <div className="mb-5 grid grid-cols-3 gap-1 rounded-xl border border-[#E4E1D8] bg-[#F2EFE8] p-1 lg:hidden">
+        {/* Mobile App Segmented Switcher */}
+        <div className="mb-4 grid grid-cols-3 gap-1 rounded-xl border border-[#E4E1D8] bg-[#F2EFE8] p-1 lg:hidden">
           {[
             { id: 'research' as MobileTab, label: 'Research' },
             { id: 'papers' as MobileTab, label: `Papers (${PUBLICATIONS.length})` },
@@ -144,29 +141,88 @@ export const ExperiencePage: React.FC = () => {
           ))}
         </div>
 
-        {/* WORKSTREAMS & ZF (Always visible on desktop; visible on mobile 'research' tab) */}
+        {/* RESEARCH TAB (Mobile minimal; Desktop full) */}
         <div className={mobileTab === 'research' ? 'block' : 'hidden lg:block'}>
-          {/* TCS Research — Interactive Workstream Showcase */}
-          <section className="rounded-2xl border border-[#E4E1D8] bg-white p-4 shadow-[0_18px_50px_-32px_rgba(17,19,24,0.2)] sm:p-8 lg:p-10">
-            <div className="flex flex-col gap-2 border-b border-[#EFECE4] pb-4 md:flex-row md:items-end md:justify-between md:pb-6">
-              <div>
-                <div className="inline-flex items-center gap-2 font-mono-tech text-[11px] font-semibold text-[#0F766E] sm:text-xs">
-                  <Building2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
-                  {EXPERIENCE_DETAILS.tcs.organization}
-                </div>
-                <h2 className="font-serif-display mt-1 text-xl font-medium text-[#111318] sm:mt-1.5 sm:text-3xl">
-                  {EXPERIENCE_DETAILS.tcs.role}
-                </h2>
-              </div>
-              <div className="font-mono-tech text-[11px] text-[#6B7280] md:text-right sm:text-xs">
-                <span className="font-semibold text-[#111318]">{EXPERIENCE_DETAILS.tcs.period}</span>
-                <span className="hidden md:block">{EXPERIENCE_DETAILS.tcs.locations}</span>
+          {/* Mobile Ultra-Clean Workstream Card */}
+          <div className="space-y-3 lg:hidden">
+            <div className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1">
+              {EXPERIENCE_DETAILS.tcs.workstreams.map((ws, idx) => {
+                const isSelected = ws.id === activeStream.id;
+                return (
+                  <button
+                    key={ws.id}
+                    type="button"
+                    onClick={() => setActiveStreamId(ws.id)}
+                    className={`shrink-0 rounded-full border px-3 py-1.5 font-mono-tech text-[11px] font-medium transition-colors ${
+                      isSelected
+                        ? 'border-[#0F766E] bg-[#0F766E] text-white'
+                        : 'border-[#E4E1D8] bg-white text-[#434956]'
+                    }`}
+                  >
+                    0{idx + 1} {ws.title.split(' ')[0]}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="rounded-2xl border border-[#E4E1D8] bg-white p-4">
+              <span className="font-mono-tech text-[10px] font-semibold text-[#0F766E]">
+                {activeStream.venue}
+              </span>
+              <h2 className="font-serif-display mt-1 text-xl font-medium text-[#111318]">
+                {activeStream.title}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-[#434956]">
+                {activeStream.outcome}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {activeStream.tags.slice(0, 4).map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-md border border-[#E4E1D8] bg-[#FAF9F6] px-2 py-0.5 font-mono-tech text-[10px] text-[#111318]"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </div>
 
-            <div className="mt-4 grid gap-4 lg:mt-7 lg:grid-cols-12 lg:gap-6">
-              {/* Workstream Selector */}
-              <div className="no-scrollbar -mx-1 flex min-w-0 gap-2 overflow-x-auto px-1 pb-1 lg:mx-0 lg:col-span-5 lg:flex-col lg:space-y-2 lg:overflow-visible lg:px-0 lg:pb-0">
+            {/* Compact ZF Row */}
+            <div className="flex items-center justify-between gap-2 rounded-xl border border-[#E4E1D8] bg-[#F2EFE8]/70 px-4 py-3">
+              <div>
+                <div className="text-xs font-semibold text-[#111318]">
+                  {EXPERIENCE_DETAILS.zf.organization} • {EXPERIENCE_DETAILS.zf.role}
+                </div>
+                <div className="font-mono-tech text-[10px] text-[#6B7280]">
+                  Detection • Segmentation • Pose Estimation
+                </div>
+              </div>
+              <span className="shrink-0 font-mono-tech text-[10px] font-medium text-[#0F766E]">
+                2022–23
+              </span>
+            </div>
+          </div>
+
+          {/* Desktop Full Workstream Showcase */}
+          <section className="hidden rounded-2xl border border-[#E4E1D8] bg-white p-8 shadow-[0_18px_50px_-32px_rgba(17,19,24,0.2)] lg:block lg:p-10">
+            <div className="flex items-end justify-between border-b border-[#EFECE4] pb-6">
+              <div>
+                <div className="inline-flex items-center gap-2 font-mono-tech text-xs font-semibold text-[#0F766E]">
+                  <Building2 className="h-4 w-4" aria-hidden="true" />
+                  {EXPERIENCE_DETAILS.tcs.organization}
+                </div>
+                <h2 className="font-serif-display mt-1.5 text-3xl font-medium text-[#111318]">
+                  {EXPERIENCE_DETAILS.tcs.role}
+                </h2>
+              </div>
+              <div className="text-right font-mono-tech text-xs text-[#6B7280]">
+                <div className="font-semibold text-[#111318]">{EXPERIENCE_DETAILS.tcs.period}</div>
+                <div>{EXPERIENCE_DETAILS.tcs.locations}</div>
+              </div>
+            </div>
+
+            <div className="mt-7 grid grid-cols-12 gap-6">
+              <div className="col-span-5 space-y-2">
                 {EXPERIENCE_DETAILS.tcs.workstreams.map((ws) => {
                   const isSelected = ws.id === activeStream.id;
                   return (
@@ -174,7 +230,7 @@ export const ExperiencePage: React.FC = () => {
                       key={ws.id}
                       type="button"
                       onClick={() => setActiveStreamId(ws.id)}
-                      className={`min-w-[175px] shrink-0 rounded-xl border p-3 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] lg:min-w-0 lg:w-full lg:p-4 ${
+                      className={`w-full rounded-xl border p-4 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] ${
                         isSelected
                           ? 'border-[#0F766E] bg-[#0F766E]/[0.07] shadow-sm'
                           : 'border-[#E4E1D8] bg-[#FAF9F6]/70 hover:border-[#C5C0B2]'
@@ -182,29 +238,24 @@ export const ExperiencePage: React.FC = () => {
                     >
                       <div className="flex items-center justify-between font-mono-tech text-[10px]">
                         <span className="font-semibold text-[#0F766E]">{ws.code}</span>
-                        <span className="hidden text-[#6B7280] sm:inline">{ws.venue}</span>
+                        <span className="text-[#6B7280]">{ws.venue}</span>
                       </div>
-                      <div className="mt-1 text-xs font-semibold text-[#111318] lg:text-base">
-                        {ws.title}
-                      </div>
+                      <div className="mt-1 text-base font-semibold text-[#111318]">{ws.title}</div>
                     </button>
                   );
                 })}
               </div>
 
-              {/* Active Workstream Dossier (Minimal Method + Outcome on mobile; full 3-part on desktop) */}
-              <div className="flex min-w-0 flex-col justify-between rounded-xl border border-[#E4E1D8] bg-[#FAF9F6] p-4 sm:p-6 lg:col-span-7">
+              <div className="col-span-7 flex flex-col justify-between rounded-xl border border-[#E4E1D8] bg-[#FAF9F6] p-6">
                 <div>
-                  <span className="font-mono-tech text-[10px] font-semibold text-[#0F766E] sm:text-xs">
+                  <span className="font-mono-tech text-xs font-semibold text-[#0F766E]">
                     {activeStream.code} // {activeStream.venue}
                   </span>
-
-                  <h3 className="font-serif-display mt-2 text-lg font-medium text-[#111318] sm:mt-3 sm:text-2xl">
+                  <h3 className="font-serif-display mt-3 text-2xl font-medium text-[#111318]">
                     {activeStream.title}
                   </h3>
-
-                  <div className="mt-3 space-y-2.5 sm:mt-5 sm:space-y-4">
-                    <div className="hidden rounded-lg border border-[#E4E1D8] bg-white p-4 sm:block">
+                  <div className="mt-5 space-y-4">
+                    <div className="rounded-lg border border-[#E4E1D8] bg-white p-4">
                       <div className="font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">
                         Research Problem
                       </div>
@@ -212,32 +263,29 @@ export const ExperiencePage: React.FC = () => {
                         {activeStream.problem}
                       </p>
                     </div>
-
-                    <div className="rounded-lg border border-[#E4E1D8] bg-white p-3.5 sm:p-4">
+                    <div className="rounded-lg border border-[#E4E1D8] bg-white p-4">
                       <div className="font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[#0F766E]">
                         Method
                       </div>
-                      <p className="mt-1 text-xs leading-relaxed text-[#111318] sm:text-sm">
+                      <p className="mt-1 text-sm leading-relaxed text-[#111318]">
                         {activeStream.approach}
                       </p>
                     </div>
-
-                    <div className="rounded-lg border border-[#0F766E]/25 bg-[#0F766E]/[0.05] p-3.5 sm:p-4">
+                    <div className="rounded-lg border border-[#0F766E]/25 bg-[#0F766E]/[0.05] p-4">
                       <div className="font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[#0F766E]">
                         Outcome
                       </div>
-                      <p className="mt-1 text-xs font-medium leading-relaxed text-[#111318] sm:text-sm">
+                      <p className="mt-1 text-sm font-medium leading-relaxed text-[#111318]">
                         {activeStream.outcome}
                       </p>
                     </div>
                   </div>
                 </div>
-
-                <div className="mt-3.5 flex flex-wrap gap-1.5 pt-1 sm:mt-5">
+                <div className="mt-5 flex flex-wrap gap-1.5 pt-2">
                   {activeStream.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-md border border-[#E4E1D8] bg-white px-2 py-0.5 font-mono-tech text-[10px] text-[#111318] sm:px-2.5 sm:py-1 sm:text-[11px]"
+                      className="rounded-md border border-[#E4E1D8] bg-white px-2.5 py-1 font-mono-tech text-[11px] text-[#111318]"
                     >
                       {t}
                     </span>
@@ -247,41 +295,36 @@ export const ExperiencePage: React.FC = () => {
             </div>
           </section>
 
-          {/* Earlier Work — ZF Technologies (Compact single card on mobile) */}
-          <section className="mt-4 rounded-2xl border border-[#E4E1D8] bg-[#F2EFE8]/60 p-4 sm:mt-8 sm:p-8">
-            <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between sm:border-b sm:border-[#DFDBD0] sm:pb-4">
+          {/* Desktop Earlier Work — ZF Technologies */}
+          <section className="mt-8 hidden rounded-2xl border border-[#E4E1D8] bg-[#F2EFE8]/60 p-8 lg:block">
+            <div className="flex items-end justify-between border-b border-[#DFDBD0] pb-4">
               <div>
-                <span className="font-mono-tech text-[10px] font-semibold uppercase tracking-[0.14em] text-[#0F766E] sm:text-[11px]">
+                <span className="font-mono-tech text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F766E]">
                   Earlier Work • Computer Vision
                 </span>
-                <h2 className="font-serif-display mt-0.5 text-lg font-medium text-[#111318] sm:mt-1 sm:text-2xl">
+                <h2 className="font-serif-display mt-1 text-2xl font-medium text-[#111318]">
                   {EXPERIENCE_DETAILS.zf.organization} — {EXPERIENCE_DETAILS.zf.role}
                 </h2>
               </div>
-              <span className="font-mono-tech text-[11px] text-[#6B7280] sm:text-xs">
-                {EXPERIENCE_DETAILS.zf.period}
+              <span className="font-mono-tech text-xs text-[#6B7280]">
+                {EXPERIENCE_DETAILS.zf.period} • {EXPERIENCE_DETAILS.zf.location}
               </span>
             </div>
-
-            <p className="mt-4 hidden max-w-3xl text-base leading-relaxed text-[#434956] sm:block">
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-[#434956]">
               {EXPERIENCE_DETAILS.zf.summary}
             </p>
-
-            <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4">
+            <div className="mt-5 grid grid-cols-3 gap-4">
               {EXPERIENCE_DETAILS.zf.pillars.map((pillar) => (
-                <div
-                  key={pillar.title}
-                  className="rounded-lg border border-[#E4E1D8] bg-white px-3 py-1.5 sm:rounded-xl sm:p-4"
-                >
-                  <div className="text-xs font-semibold text-[#111318] sm:text-sm">{pillar.title}</div>
-                  <p className="mt-1 hidden text-xs leading-relaxed text-[#6B7280] sm:block">{pillar.detail}</p>
+                <div key={pillar.title} className="rounded-xl border border-[#E4E1D8] bg-white p-4">
+                  <div className="text-sm font-semibold text-[#111318]">{pillar.title}</div>
+                  <p className="mt-1 text-xs leading-relaxed text-[#6B7280]">{pillar.detail}</p>
                 </div>
               ))}
             </div>
           </section>
         </div>
 
-        {/* PUBLICATIONS (Always visible on desktop; visible on mobile 'papers' tab) */}
+        {/* PAPERS TAB */}
         <section className={`lg:mt-14 ${mobileTab === 'papers' ? 'block' : 'hidden lg:block'}`}>
           <div className="mb-4 hidden items-end justify-between lg:flex">
             <div>
@@ -297,22 +340,20 @@ export const ExperiencePage: React.FC = () => {
             </span>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {PUBLICATIONS.map((pub, idx) => (
               <article
                 key={pub.id}
-                className="rounded-xl border border-[#E4E1D8] bg-white p-4 transition-colors hover:border-[#0F766E]/50 sm:p-6"
+                className="rounded-xl border border-[#E4E1D8] bg-white p-3.5 transition-colors hover:border-[#0F766E]/50 sm:p-6"
               >
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:justify-between">
                   <div className="max-w-3xl">
-                    <div className="flex flex-wrap items-center gap-2 font-mono-tech text-[11px]">
+                    <div className="flex flex-wrap items-center gap-2 font-mono-tech text-[10px] sm:text-[11px]">
                       <span className="text-[#6B7280]">[{String(idx + 1).padStart(2, '0')}]</span>
                       <span className="rounded bg-[#0F766E]/10 px-2 py-0.5 font-semibold text-[#0F766E]">
                         {pub.venue} {pub.year}
                       </span>
-                      <span className="text-[#6B7280]">
-                        {pub.location}
-                      </span>
+                      <span className="text-[#6B7280]">{pub.location}</span>
                     </div>
                     <h3 className="mt-1.5 text-sm font-semibold leading-snug text-[#111318] sm:mt-2 sm:text-lg">
                       {pub.title}
@@ -327,7 +368,7 @@ export const ExperiencePage: React.FC = () => {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 rounded-md border border-[#E4E1D8] bg-[#FAF9F6] px-2.5 py-1 font-mono-tech text-[11px] font-medium text-[#111318] hover:border-[#0F766E] hover:text-[#0F766E] sm:px-3 sm:py-1.5"
+                          className="inline-flex items-center gap-1 rounded-md border border-[#E4E1D8] bg-[#FAF9F6] px-2.5 py-1 font-mono-tech text-[10px] font-medium text-[#111318] hover:border-[#0F766E] hover:text-[#0F766E] sm:px-3 sm:py-1.5 sm:text-[11px]"
                         >
                           {link.label}
                           <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
@@ -381,18 +422,18 @@ export const ExperiencePage: React.FC = () => {
           </div>
         </section>
 
-        {/* CAPABILITIES (Always visible on desktop; visible on mobile 'skills' tab) */}
+        {/* SKILLS TAB */}
         <section className={`lg:mt-14 ${mobileTab === 'skills' ? 'block' : 'hidden lg:block'}`}>
           <h2 className="font-serif-display mb-5 hidden text-3xl font-medium text-[#111318] lg:block">
             Technical Capabilities
           </h2>
-          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+          <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-4">
             {EXPERIENCE_DETAILS.skillGroups.map((sg) => (
-              <div key={sg.group} className="rounded-2xl border border-[#E4E1D8] bg-white p-4 sm:p-5">
+              <div key={sg.group} className="rounded-xl border border-[#E4E1D8] bg-white p-3.5 sm:rounded-2xl sm:p-5">
                 <div className="font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[#0F766E] sm:text-[11px]">
                   {sg.group}
                 </div>
-                <div className="mt-2.5 flex flex-wrap gap-1.5 sm:mt-3">
+                <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3">
                   {sg.items.map((item) => (
                     <span
                       key={item}
