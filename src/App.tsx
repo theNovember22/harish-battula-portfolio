@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { MotionConfig, motion } from 'framer-motion';
+import { ThemeProvider } from './lib/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
@@ -20,34 +22,53 @@ const ScrollManager: React.FC = () => {
   return null;
 };
 
+const AnimatedRoutes: React.FC = () => {
+  const location = useLocation();
+
+  return (
+    <motion.div
+      key={location.pathname}
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <Routes location={location}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/education" element={<EducationPage />} />
+        <Route path="/experience" element={<ExperiencePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<HomePage />} />
+      </Routes>
+    </motion.div>
+  );
+};
+
 export function App() {
   return (
-    <HashRouter>
-      <ScrollManager />
-      <div className="min-h-screen flex flex-col pb-24 md:pb-0">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-[#0F766E] focus:px-4 focus:py-2 focus:font-mono-tech focus:text-xs focus:text-white"
-        >
-          Skip to main content
-        </a>
+    <ThemeProvider>
+      <MotionConfig reducedMotion="user">
+        <HashRouter>
+          <ScrollManager />
+          <div className="min-h-screen flex flex-col pb-24 md:pb-0">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-[var(--accent-signal)] focus:px-4 focus:py-2 focus:font-mono-tech focus:text-xs focus:text-white"
+            >
+              Skip to main content
+            </a>
 
-        <Navbar />
+            <Navbar />
 
-        <main id="main-content" className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/education" element={<EducationPage />} />
-            <Route path="/experience" element={<ExperiencePage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-        </main>
+            <main id="main-content" className="flex-1">
+              <AnimatedRoutes />
+            </main>
 
-        <Footer />
-      </div>
-    </HashRouter>
+            <Footer />
+          </div>
+        </HashRouter>
+      </MotionConfig>
+    </ThemeProvider>
   );
 }
 

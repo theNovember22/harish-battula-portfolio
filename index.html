@@ -14,6 +14,21 @@
     />
     <meta name="author" content="Harish Battula" />
     <meta name="theme-color" content="#FAF9F6" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('harish-portfolio-theme');
+          var theme =
+            saved === 'dark' || saved === 'light'
+              ? saved
+              : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+          document.documentElement.dataset.theme = theme;
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- OpenGraph -->
     <meta property="og:type" content="website" />
@@ -80,7 +95,7 @@
       }
     </script>
   </head>
-  <body class="bg-[#FAF9F6] text-[#111318] antialiased selection:bg-[#0F766E]/15 selection:text-[#0F766E]">
+  <body class="bg-[var(--bg-canvas)] text-[var(--ink-primary)] antialiased selection:bg-[var(--accent-signal-soft)] selection:text-[var(--accent-signal)]">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -15,9 +15,8 @@ export const ChapterShell: React.FC<ChapterShellProps> = ({
     <section
       id={id}
       data-chapter={id}
-      className={`chapter-snap flex items-center border-t border-[#E4E1D8] py-8 md:py-24 ${
-        tinted ? 'bg-[#F2EFE8]/45' : 'bg-transparent'
-      }`}
+      style={tinted ? { backgroundColor: 'var(--bg-tint)' } : undefined}
+      className="chapter-snap flex items-center border-t border-[var(--border-hairline)] py-8 transition-colors duration-200 md:py-24"
     >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>
     </section>
