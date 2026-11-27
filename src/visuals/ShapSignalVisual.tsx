@@ -29,7 +29,7 @@ export const ShapSignalVisual: React.FC<{ features: ShapItem[] }> = ({ features 
           SHAP / LIME PHYSIOLOGICAL ATTRIBUTION
         </span>
         <span className="text-[var(--ink-muted)]">
-          {focusedWindow ? focusedWindow.tag : 'HOVER OR TAP FEATURE BAR'}
+          {focusedWindow ? focusedWindow.tag : 'FEATURE IMPACT'}
         </span>
       </div>
 

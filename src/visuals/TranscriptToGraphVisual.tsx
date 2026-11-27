@@ -145,7 +145,7 @@ export const TranscriptToGraphVisual: React.FC<{ tokens: string[]; accuracyLabel
           <span>
             {selectedLabel
               ? `1-HOP ATTENTION: "${selectedLabel.toUpperCase()}" → [${neighborLabels.join(', ')}]`
-              : 'TAP OR HOVER ANY NODE TO PROBE GNN NEIGHBORHOOD'}
+              : 'PYTORCH GEOMETRIC SUBGRAPH'}
           </span>
           {pinnedNodeId !== null && (
             <button
@@ -156,7 +156,7 @@ export const TranscriptToGraphVisual: React.FC<{ tokens: string[]; accuracyLabel
               }}
               className="text-[#2DD4BF] hover:underline"
             >
-              Clear focus
+              Reset
             </button>
           )}
         </div>

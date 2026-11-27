@@ -204,7 +204,7 @@ export const MorphWaveformCanvas: React.FC = () => {
           ACOUSTIC SPEECH
         </span>
         <span className="hidden rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[#94A3B8] sm:inline">
-          SCRUB MORPH • SPLIT {readoutPct}%
+          SIGNAL MORPH • {readoutPct}%
         </span>
         <span className="inline-flex items-center gap-1.5 text-[#F05252]">
           CARDIAC ECG PULSE
@@ -213,7 +213,6 @@ export const MorphWaveformCanvas: React.FC = () => {
       </div>
       <div className="pointer-events-none absolute inset-x-0 bottom-2 flex items-center justify-between px-4 font-mono-tech text-[9.5px] text-[#64748B]">
         <span>16 kHz MIC → ICA DECOMPOSITION</span>
-        <span className="hidden sm:inline">MOVE OR DRAG TO SHIFT SIGNAL BOUNDARY</span>
         <span>EST. HR ~72 BPM</span>
       </div>
     </div>

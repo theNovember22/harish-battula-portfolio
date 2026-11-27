@@ -28,9 +28,6 @@ export const SkillConstellation: React.FC = () => {
             How tools connect across signals, models &amp; deployment
           </h3>
         </div>
-        <span className="hidden font-mono-tech text-[10px] text-[var(--ink-muted)] sm:inline">
-          HOVER OR SELECT A HUB TO INSPECT STACK
-        </span>
       </div>
 
       {/* Desktop Constellation SVG + Orbital Stack Readout */}

@@ -212,9 +212,6 @@ export const ExperiencePage: React.FC = () => {
                   From Engineering Foundations to TCS Research
                 </h2>
               </div>
-              <span className="hidden font-mono-tech text-[10px] text-[var(--ink-muted)] sm:inline">
-                SELECT NODE TO EXPLORE ROLE
-              </span>
             </div>
 
             {/* Horizontal Year Timeline Nodes */}

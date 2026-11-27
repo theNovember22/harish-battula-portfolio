@@ -36,12 +36,13 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Top Bar: Full blended nav on Desktop; minimal native app bar on Mobile */}
+      {/* Top Bar: Liquid Glass header bar */}
       <header
-        className="sticky top-0 z-50 border-b backdrop-blur-xl transition-colors duration-200"
+        className="sticky top-0 z-50 border-b backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-200"
         style={{
           backgroundColor: 'var(--bg-header)',
           borderColor: 'var(--border-hairline)',
+          boxShadow: 'inset 0 -1px 0 var(--glass-bottom-rim)',
         }}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">

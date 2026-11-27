@@ -31,7 +31,7 @@ export const TrajectoryCurveVisual: React.FC = () => {
       {/* Scrubbable Time Axis Control */}
       <div className="mb-3 flex flex-col gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
         <span className="font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[var(--ink-secondary)]">
-          Scrub Observation → Forecast Horizon
+          Observation → Forecast Horizon
         </span>
         <div className="flex items-center gap-2 sm:w-52">
           <span className="font-mono-tech text-[9px] text-[var(--ink-muted)]">t₁</span>

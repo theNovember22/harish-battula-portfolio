@@ -173,7 +173,7 @@ export const ConfidenceSpectrogramVisual: React.FC = () => {
         <div className="pointer-events-none absolute inset-x-0 top-2 flex justify-between px-3 font-mono-tech text-[9.5px] tracking-wider">
           <span className="text-[#2DD4BF]">SPEECH FORMANT SPECTROGRAM</span>
           <span className="hidden text-[#94A3B8] sm:inline">
-            {probeX !== null ? `WINDOW ${(probeX * 4).toFixed(2)}s` : 'HOVER / DRAG TO INSPECT'}
+            {probeX !== null ? `WINDOW ${(probeX * 4).toFixed(2)}s` : 'AUTONOMIC TRACE'}
           </span>
         </div>
         <div className="pointer-events-none absolute bottom-2 left-3 font-mono-tech text-[9.5px] text-[#F05252]">

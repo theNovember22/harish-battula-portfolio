@@ -115,9 +115,6 @@ export const ProjectsPage: React.FC = () => {
             <h1 className="font-serif-display mt-1.5 text-3xl font-medium tracking-tight text-[var(--ink-primary)] sm:text-5xl">
               Six questions, built as live labs.
             </h1>
-            <p className="mt-2 max-w-xl text-sm text-[var(--ink-secondary)] sm:text-base">
-              Tap any card to open its interactive simulator, method breakdown, and paper links.
-            </p>
           </div>
 
           <div className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0">
