@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, FileDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, FileDown } from 'lucide-react';
 import { HERO_CONTENT, PROFILE, PROJECT_CHAPTERS_META } from '../data/profile.js';
 import { MorphWaveformCanvas } from '../visuals/MorphWaveformCanvas';
 
@@ -59,34 +59,48 @@ const ChapterMiniGlyph: React.FC<{ idx: number }> = ({ idx }) => {
 };
 
 export const HomePage: React.FC = () => {
+  const [aboutExpanded, setAboutExpanded] = useState(false);
+
   return (
     <div>
-      {/* Hero — preserved multi-page structure with calibrated Light/Dark physics */}
+      {/* Level 1 Hero (5-second immediate understanding) */}
       <section
         id="hero"
-        className="flex min-h-[calc(100svh-3.75rem)] flex-col justify-center py-8 sm:py-10 md:py-12"
+        className="flex min-h-[calc(100svh-3.75rem)] flex-col justify-center py-7 sm:py-10 md:py-12"
       >
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 font-mono-tech text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-signal)] sm:text-xs">
+            <div className="flex flex-wrap items-center gap-2 font-mono-tech text-[10.5px] font-semibold uppercase tracking-[0.15em] text-[var(--accent-signal)] sm:text-xs">
               <span className="animate-cardiac h-1.5 w-1.5 rounded-full bg-[var(--accent-data)]" />
               <span>{HERO_CONTENT.eyebrow}</span>
             </div>
 
-            <h1 className="font-serif-display mt-3 text-4xl font-medium leading-[1.06] tracking-[-0.025em] text-[var(--ink-primary)] sm:text-6xl lg:text-[66px]">
+            <h1 className="font-serif-display mt-2.5 text-4xl font-medium leading-[1.05] tracking-[-0.025em] text-[var(--ink-primary)] sm:mt-3 sm:text-6xl lg:text-[64px]">
               {HERO_CONTENT.headline}
             </h1>
 
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--ink-secondary)] sm:text-lg">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--ink-secondary)] sm:mt-4 sm:text-lg">
               {HERO_CONTENT.subline}
             </p>
 
-            <div className="mt-6 flex flex-wrap items-center gap-4">
+            {/* Level 1 Keyword Pills */}
+            <div className="mt-4 flex flex-wrap gap-1.5 sm:gap-2">
+              {HERO_CONTENT.roles.map((r) => (
+                <span
+                  key={r}
+                  className="rounded-full border border-[var(--border-hairline)] bg-[var(--bg-paper)] px-2.5 py-0.5 font-mono-tech text-[10px] font-medium text-[var(--ink-secondary)] sm:px-3 sm:py-1 sm:text-[11px]"
+                >
+                  {r}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-4 sm:mt-6">
               <Link
                 to="/projects"
                 className="inline-flex items-center gap-2 rounded-lg bg-[var(--btn-primary-bg)] px-5 py-3 font-mono-tech text-xs font-semibold tracking-wider text-[var(--btn-primary-fg)] transition-all hover:-translate-y-0.5 hover:bg-[var(--btn-primary-hover)] active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-signal)]"
@@ -109,25 +123,25 @@ export const HomePage: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8 sm:mt-10"
+            transition={{ duration: 0.38, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-7 sm:mt-9"
           >
             <MorphWaveformCanvas />
           </motion.div>
 
-          {/* Compact 4-Fact Quick Strip */}
+          {/* Compact Visual Metric Strip */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.38, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4"
+            transition={{ duration: 0.36, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-4 grid grid-cols-2 gap-2.5 sm:mt-5 sm:grid-cols-4 sm:gap-3"
           >
             {PROFILE.quickFacts.map((fact) => (
               <div
                 key={fact.label}
                 className="surface-card rounded-xl px-3.5 py-2.5 transition-colors hover:border-[var(--accent-signal)]"
               >
-                <div className="font-mono-tech text-[10px] uppercase tracking-wider text-[var(--ink-muted)]">
+                <div className="font-mono-tech text-[9.5px] uppercase tracking-wider text-[var(--ink-muted)] sm:text-[10px]">
                   {fact.label}
                 </div>
                 <div className="mt-0.5 text-xs font-semibold leading-snug text-[var(--ink-primary)] sm:text-[13px]">
@@ -139,56 +153,113 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Curiosity Arc Chapters Directory — links directly to /projects chapters */}
+      {/* Level 2 Visual Story Arc + Interactive Chapters Directory */}
       <section
-        className="border-t border-[var(--border-hairline)] py-10 transition-colors duration-200 sm:py-12 md:py-14"
+        className="border-t border-[var(--border-hairline)] py-9 transition-colors duration-200 sm:py-12 md:py-14"
         style={{ backgroundColor: 'var(--bg-tint)' }}
       >
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-5 flex flex-col gap-2 sm:mb-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span className="font-mono-tech text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent-signal)]">
-                Curiosity Arc • Chapters 01–06
-              </span>
-              <h2 className="font-serif-display mt-1 text-2xl font-medium text-[var(--ink-primary)] sm:text-3xl">
-                Follow the research chapters
-              </h2>
-            </div>
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-1.5 font-mono-tech text-xs font-semibold text-[var(--accent-signal)] hover:underline"
-            >
-              Open all 6 chapters
-              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
-            {PROJECT_CHAPTERS_META.map((ch, idx) => (
-              <Link
-                key={ch.id}
-                to={`/projects#${ch.id}`}
-                className="surface-card group flex min-w-[236px] shrink-0 snap-start items-center justify-between rounded-xl px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-[var(--accent-signal)] sm:min-w-0"
+        <div className="mx-auto max-w-6xl space-y-8 px-4 sm:px-6 lg:px-8">
+          {/* Compact Visual Narrative Progression: SIGNALS -> MODELS -> EVIDENCE -> IMPACT */}
+          <div className="surface-card rounded-2xl p-4 sm:p-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span className="font-mono-tech text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--accent-signal)]">
+                  The Approach
+                </span>
+                <h2 className="font-serif-display mt-0.5 text-xl font-medium text-[var(--ink-primary)] sm:text-2xl">
+                  {HERO_CONTENT.storyHeadline}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAboutExpanded((v) => !v)}
+                aria-expanded={aboutExpanded}
+                className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[var(--border-hairline)] bg-[var(--bg-subtle)] px-3 py-1.5 font-mono-tech text-[11px] font-medium text-[var(--ink-primary)] transition-colors hover:border-[var(--accent-signal)] hover:text-[var(--accent-signal)]"
               >
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 text-[var(--accent-signal)]">
-                    <span className="font-mono-tech text-[10px] font-semibold">
-                      CHAPTER {ch.code}
-                    </span>
-                    <span className="opacity-70 transition-opacity group-hover:opacity-100">
-                      <ChapterMiniGlyph idx={idx} />
-                    </span>
-                  </div>
-                  <div className="mt-1 truncate text-sm font-semibold text-[var(--ink-primary)] transition-colors group-hover:text-[var(--accent-signal)]">
-                    {ch.shortTitle}
-                  </div>
-                </div>
-                <ArrowRight
-                  className="h-4 w-4 shrink-0 text-[var(--ink-muted)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--accent-signal)]"
+                {aboutExpanded ? 'Hide research bio' : 'Read research bio'}
+                <ChevronDown
+                  className={`h-3.5 w-3.5 transition-transform ${aboutExpanded ? 'rotate-180' : ''}`}
                   aria-hidden="true"
                 />
+              </button>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+              {HERO_CONTENT.storyStages.map((s) => (
+                <div
+                  key={s.step}
+                  className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-3.5 py-2.5"
+                >
+                  <div className="flex items-center justify-between font-mono-tech text-[10px]">
+                    <span className="font-semibold text-[var(--accent-signal)]">{s.step}</span>
+                    <span className="font-semibold tracking-wider text-[var(--ink-primary)]">
+                      {s.word}
+                    </span>
+                  </div>
+                  <div className="mt-1 text-xs text-[var(--ink-secondary)]">{s.detail}</div>
+                </div>
+              ))}
+            </div>
+
+            {aboutExpanded && (
+              <motion.p
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
+                className="mt-4 border-t border-[var(--border-subtle)] pt-3.5 text-sm leading-relaxed text-[var(--ink-secondary)]"
+              >
+                {HERO_CONTENT.aboutDrawerCopy}
+              </motion.p>
+            )}
+          </div>
+
+          {/* Interactive Chapters Shortcut Grid */}
+          <div>
+            <div className="mb-4 flex flex-col gap-1.5 sm:mb-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="font-mono-tech text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent-signal)]">
+                  Interactive Signal Labs • Chapters 01–06
+                </span>
+                <h2 className="font-serif-display mt-0.5 text-2xl font-medium text-[var(--ink-primary)] sm:text-3xl">
+                  Open an experiment
+                </h2>
+              </div>
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-1.5 font-mono-tech text-xs font-semibold text-[var(--accent-signal)] hover:underline"
+              >
+                Explore all 6 visual labs
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
-            ))}
+            </div>
+
+            <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
+              {PROJECT_CHAPTERS_META.map((ch, idx) => (
+                <Link
+                  key={ch.id}
+                  to={`/projects#${ch.id}`}
+                  className="surface-card group flex min-w-[230px] shrink-0 snap-start items-center justify-between rounded-xl px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-[var(--accent-signal)] sm:min-w-0"
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 text-[var(--accent-signal)]">
+                      <span className="font-mono-tech text-[10px] font-semibold">
+                        LAB {ch.code}
+                      </span>
+                      <span className="opacity-75 transition-opacity group-hover:opacity-100">
+                        <ChapterMiniGlyph idx={idx} />
+                      </span>
+                    </div>
+                    <div className="mt-1 truncate text-sm font-semibold text-[var(--ink-primary)] transition-colors group-hover:text-[var(--accent-signal)]">
+                      {ch.shortTitle}
+                    </div>
+                  </div>
+                  <ArrowRight
+                    className="h-4 w-4 shrink-0 text-[var(--ink-muted)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--accent-signal)]"
+                    aria-hidden="true"
+                  />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>

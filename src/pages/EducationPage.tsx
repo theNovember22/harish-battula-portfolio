@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, GraduationCap, MapPin } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronDown, GraduationCap, MapPin } from 'lucide-react';
 import { EDUCATION_PAGE_DATA } from '../data/profile.js';
 import { LoadHorizonVisual } from '../visuals/LoadHorizonVisual';
 
 export const EducationPage: React.FC = () => {
   const { masters, bachelors, bridgeSteps } = EDUCATION_PAGE_DATA;
+  const [thesisExpanded, setThesisExpanded] = useState(false);
 
   return (
     <div className="py-5 sm:py-12 md:py-16 lg:py-20">
@@ -20,7 +21,7 @@ export const EducationPage: React.FC = () => {
             <span className="md:hidden">From power grids to human signals.</span>
             <span className="hidden md:inline">{EDUCATION_PAGE_DATA.headline}</span>
           </h1>
-          <p className="mt-3 hidden text-base leading-relaxed text-[var(--ink-secondary)] md:block md:text-lg">
+          <p className="mt-2.5 hidden text-base leading-relaxed text-[var(--ink-secondary)] md:block">
             {EDUCATION_PAGE_DATA.subline}
           </p>
         </div>
@@ -65,29 +66,44 @@ export const EducationPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-3 rounded-xl border-l-2 border-[var(--accent-signal)] bg-[var(--bg-subtle)] px-3 py-2.5 sm:mt-6 sm:px-4 sm:py-3.5">
-                <div className="font-mono-tech text-[9.5px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-signal)] sm:text-[10px]">
-                  Master’s Thesis
+              <div className="mt-3 rounded-xl border-l-2 border-[var(--accent-signal)] bg-[var(--bg-subtle)] px-3 py-2.5 sm:mt-5 sm:px-4 sm:py-3.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono-tech text-[9.5px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-signal)] sm:text-[10px]">
+                    Master’s Thesis
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setThesisExpanded((v) => !v)}
+                    aria-expanded={thesisExpanded}
+                    className="inline-flex items-center gap-1 font-mono-tech text-[10px] font-medium text-[var(--ink-muted)] hover:text-[var(--accent-signal)]"
+                  >
+                    {thesisExpanded ? 'Hide abstract' : 'Details'}
+                    <ChevronDown
+                      className={`h-3 w-3 transition-transform ${thesisExpanded ? 'rotate-180' : ''}`}
+                      aria-hidden="true"
+                    />
+                  </button>
                 </div>
                 <div className="mt-0.5 text-xs font-semibold text-[var(--ink-primary)] sm:mt-1 sm:text-base">
                   {masters.thesisTitle}
                 </div>
+                {thesisExpanded && (
+                  <p className="mt-2 border-t border-[var(--border-hairline)] pt-2 text-xs leading-relaxed text-[var(--ink-secondary)]">
+                    {masters.thesisSummary}
+                  </p>
+                )}
               </div>
 
-              <p className="mt-4 hidden text-base leading-relaxed text-[var(--ink-secondary)] md:block">
-                {masters.thesisSummary}
-              </p>
-
-              <ul className="mt-4 hidden space-y-2 md:block">
+              <ul className="mt-4 hidden space-y-1.5 md:block">
                 {masters.outcomes.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-[var(--ink-primary)]">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-signal)]" />
+                  <li key={item} className="flex items-start gap-2.5 text-xs text-[var(--ink-secondary)] sm:text-sm">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-signal)]" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-3.5 flex flex-wrap gap-4 border-t border-[var(--border-subtle)] pt-3 sm:mt-6 sm:pt-4">
+              <div className="mt-3.5 flex flex-wrap gap-4 border-t border-[var(--border-subtle)] pt-3 sm:mt-5 sm:pt-4">
                 <a
                   href={masters.links[0].url}
                   target="_blank"
@@ -128,7 +144,7 @@ export const EducationPage: React.FC = () => {
               <p className="mt-0.5 font-mono-tech text-[11px] font-medium text-[var(--ink-secondary)] sm:text-xs">
                 {bachelors.degree} — {bachelors.field}
               </p>
-              <p className="mt-3 hidden max-w-2xl text-base leading-relaxed text-[var(--ink-secondary)] md:block">
+              <p className="mt-2.5 hidden max-w-2xl text-sm leading-relaxed text-[var(--ink-secondary)] md:block">
                 {bachelors.summary}
               </p>
             </div>
@@ -155,7 +171,7 @@ export const EducationPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Desktop Bridge */}
+        {/* Desktop Visual Progression Strip */}
         <section
           className="mt-10 hidden rounded-2xl border border-[var(--border-hairline)] p-8 md:block"
           style={{ backgroundColor: 'var(--bg-tint)' }}
@@ -168,7 +184,7 @@ export const EducationPage: React.FC = () => {
               to="/experience"
               className="inline-flex items-center gap-1.5 font-mono-tech text-xs font-semibold text-[var(--ink-primary)] hover:text-[var(--accent-signal)]"
             >
-              See Professional Experience
+              Open Experience Timeline &amp; Photos
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
           </div>

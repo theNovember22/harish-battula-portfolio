@@ -45,7 +45,7 @@ export const ContactPage: React.FC = () => {
                 {CHAPTER_09_CONTACT.closingLine}
               </h1>
 
-              <p className="mt-3 hidden max-w-xl text-base leading-relaxed text-[var(--ink-secondary)] sm:block sm:text-lg">
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--ink-secondary)] sm:text-base">
                 {CHAPTER_09_CONTACT.subline}
               </p>
 
@@ -96,7 +96,7 @@ export const ContactPage: React.FC = () => {
                       className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-[var(--btn-primary-bg)] px-4 py-2 font-mono-tech text-xs font-semibold text-[var(--btn-primary-fg)] transition-colors hover:bg-[var(--btn-primary-hover)] sm:flex-none"
                     >
                       <Mail className="h-3.5 w-3.5" aria-hidden="true" />
-                      Email
+                      Let’s Talk
                     </a>
                   </div>
                 </div>
@@ -121,7 +121,7 @@ export const ContactPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Obsidian Links Dossier (harmonious in both Light & Dark modes) */}
+          {/* Right: Obsidian Links Dossier */}
           <div
             style={{ backgroundColor: 'var(--bg-dossier)' }}
             className="flex flex-col justify-between rounded-2xl border border-[var(--border-hairline)] p-5 text-[#FAF9F6] shadow-[0_22px_50px_-28px_rgba(0,0,0,0.5)] sm:p-9 lg:col-span-5"
@@ -192,7 +192,7 @@ export const ContactPage: React.FC = () => {
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0F766E] px-4 py-3 font-mono-tech text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:bg-[#14B8A6] hover:text-[#070A0E] sm:px-5 sm:py-3.5"
               >
                 <FileDown className="h-4 w-4" aria-hidden="true" />
-                Download CV (PDF)
+                View / Download CV (PDF)
               </a>
             </div>
           </div>
