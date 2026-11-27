@@ -188,7 +188,7 @@ export const HomePage: React.FC = () => {
               {HERO_CONTENT.storyStages.map((s) => (
                 <div
                   key={s.step}
-                  className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-subtle)] px-3.5 py-2.5"
+                  className="surface-subtle rounded-xl px-3.5 py-2.5 transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   <div className="flex items-center justify-between font-mono-tech text-[10px]">
                     <span className="font-semibold text-[var(--accent-signal)]">{s.step}</span>
@@ -238,7 +238,7 @@ export const HomePage: React.FC = () => {
                 <Link
                   key={ch.id}
                   to={`/projects#${ch.id}`}
-                  className="surface-card group flex min-w-[230px] shrink-0 snap-start items-center justify-between rounded-xl px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-[var(--accent-signal)] sm:min-w-0"
+                  className="surface-card group flex min-w-[230px] shrink-0 snap-start items-center justify-between rounded-xl px-4 py-3.5 hover:-translate-y-0.5 active:scale-[0.985] sm:min-w-0"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 text-[var(--accent-signal)]">

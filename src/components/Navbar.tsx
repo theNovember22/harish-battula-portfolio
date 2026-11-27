@@ -36,13 +36,13 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Top Bar: Liquid Glass header bar */}
+      {/* Top Bar: Apple OS Liquid Glass header */}
       <header
-        className="sticky top-0 z-50 border-b backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-200"
+        className="sticky top-0 z-50 border-b backdrop-blur-2xl backdrop-saturate-200 transition-colors duration-200"
         style={{
           backgroundColor: 'var(--bg-header)',
           borderColor: 'var(--border-hairline)',
-          boxShadow: 'inset 0 -1px 0 var(--glass-bottom-rim)',
+          boxShadow: 'inset 0 1px 0 var(--glass-rim), inset 0 -1px 0 var(--glass-bottom-rim)',
         }}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
@@ -160,7 +160,7 @@ export const Navbar: React.FC = () => {
             borderColor: 'var(--border-dock)',
             boxShadow: 'var(--dock-shadow)',
           }}
-          className="pointer-events-auto flex w-full max-w-sm items-center justify-between gap-1 rounded-full border p-1.5 backdrop-blur-xl backdrop-saturate-150"
+          className="pointer-events-auto flex w-full max-w-sm items-center justify-between gap-1 rounded-full border p-1.5 backdrop-blur-2xl backdrop-saturate-200"
         >
           {NAV_LINKS.map((item) => {
             const Icon = item.icon;

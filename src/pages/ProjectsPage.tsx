@@ -153,11 +153,13 @@ export const ProjectsPage: React.FC = () => {
           {visibleCards.map((card, i) => (
             <motion.article
               key={card.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.24, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 14, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ y: -4, scale: 1.012 }}
+              whileTap={{ scale: 0.985 }}
+              transition={{ type: 'spring', stiffness: 360, damping: 28, delay: i * 0.03 }}
               onClick={() => setActiveLabId(card.id)}
-              className="surface-card group flex cursor-pointer flex-col justify-between overflow-hidden rounded-2xl p-4 transition-all hover:-translate-y-1 hover:border-[var(--accent-signal)] sm:p-5"
+              className="surface-card group flex cursor-pointer flex-col justify-between overflow-hidden rounded-2xl p-4 sm:p-5"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 font-mono-tech text-[10px]">

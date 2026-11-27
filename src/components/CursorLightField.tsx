@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
 /**
- * Global smooth cursor spotlight + per-card Liquid Glass specular sheen.
- * Runs exclusively via CSS variables + rAF on fine-pointer desktop devices
- * (0 React re-renders, disabled on touch & prefers-reduced-motion).
+ * Provides:
+ * 1) Subtle optical backdrop refraction orbs behind frosted Liquid Glass panels
+ * 2) Tight, bright rAF-smoothed cursor spotlight (--cursor-x / --cursor-y)
+ * 3) Tight per-card specular surface & beveled edge catchlight (--card-mx / --card-my)
  */
 export const CursorLightField: React.FC = () => {
   const glowRef = useRef<HTMLDivElement | null>(null);
@@ -23,12 +24,12 @@ export const CursorLightField: React.FC = () => {
     let visible = false;
 
     const animate = () => {
-      curX += (targetX - curX) * 0.16;
-      curY += (targetY - curY) * 0.16;
+      curX += (targetX - curX) * 0.22;
+      curY += (targetY - curY) * 0.22;
       root.style.setProperty('--cursor-x', `${curX.toFixed(1)}px`);
       root.style.setProperty('--cursor-y', `${curY.toFixed(1)}px`);
 
-      if (Math.abs(targetX - curX) > 0.3 || Math.abs(targetY - curY) > 0.3) {
+      if (Math.abs(targetX - curX) > 0.25 || Math.abs(targetY - curY) > 0.25) {
         rafId = requestAnimationFrame(animate);
       } else {
         rafId = 0;
@@ -84,10 +85,17 @@ export const CursorLightField: React.FC = () => {
   }, []);
 
   return (
-    <div
-      ref={glowRef}
-      aria-hidden="true"
-      className="cursor-light-field pointer-events-none fixed inset-0 z-0 opacity-0 transition-opacity duration-300"
-    />
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {/* Optical ambient shapes drifting slowly behind frosted glass so blur/refraction reads clearly */}
+      <div className="liquid-orb liquid-orb-1" />
+      <div className="liquid-orb liquid-orb-2" />
+      <div className="liquid-orb liquid-orb-3" />
+
+      {/* Tight, bright cursor-following light cone */}
+      <div
+        ref={glowRef}
+        className="cursor-light-field absolute inset-0 opacity-0 transition-opacity duration-200"
+      />
+    </div>
   );
 };

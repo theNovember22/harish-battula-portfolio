@@ -5,8 +5,11 @@ import { PROFILE } from '../data/profile.js';
 export const Footer: React.FC = () => {
   return (
     <footer
-      className="hidden border-t border-[var(--border-hairline)] backdrop-blur-xl transition-colors duration-200 md:block"
-      style={{ backgroundColor: 'var(--bg-header)' }}
+      className="hidden border-t border-[var(--border-hairline)] backdrop-blur-2xl backdrop-saturate-200 transition-colors duration-200 md:block"
+      style={{
+        backgroundColor: 'var(--bg-header)',
+        boxShadow: 'inset 0 1px 0 var(--glass-rim)',
+      }}
     >
       <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
         {/* Essential identity */}
