@@ -150,10 +150,10 @@ export const ExperiencePage: React.FC = () => {
                   alt={EXPERIENCE_DETAILS.photoAlt}
                   loading="lazy"
                   onError={() => setPhotoMissing(true)}
-                  className="aspect-[3/4] max-h-[430px] w-full rounded-xl object-cover object-top"
+                  className="aspect-[3/4] w-full rounded-xl object-cover"
                 />
               ) : (
-                <div className="scientific-grid flex aspect-[3/4] max-h-[430px] w-full flex-col items-center justify-center rounded-xl border border-dashed border-[var(--border-hairline)] bg-[var(--bg-subtle)] p-6 text-center">
+                <div className="scientific-grid flex aspect-[3/4] w-full flex-col items-center justify-center rounded-xl border border-dashed border-[var(--border-hairline)] bg-[var(--bg-subtle)] p-6 text-center">
                   <User className="h-10 w-10 text-[var(--accent-signal)]" aria-hidden="true" />
                 </div>
               )}
