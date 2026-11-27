@@ -1,29 +1,73 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Expand, MapPin, X } from 'lucide-react';
-import { CONFERENCE_GALLERY } from '../data/profile.js';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Expand, MapPin, Pause, Play, X } from 'lucide-react';
+import { CONFERENCE_GALLERY, PROFILE } from '../data/profile.js';
+
+type EventFilter = 'all' | 'interspeech' | 'eusipco';
 
 export const ConferenceCarousel: React.FC = () => {
+  const [filter, setFilter] = useState<EventFilter>('all');
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [userLocked, setUserLocked] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const thumbRailRef = useRef<HTMLDivElement | null>(null);
 
-  const total = CONFERENCE_GALLERY.length;
-  const active = CONFERENCE_GALLERY[index];
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
-  const go = (nextIdx: number) => {
+  const items = useMemo(() => {
+    if (filter === 'interspeech') return CONFERENCE_GALLERY.filter((c) => c.eventKey === 'interspeech-2025');
+    if (filter === 'eusipco') return CONFERENCE_GALLERY.filter((c) => c.eventKey === 'eusipco-2024');
+    return CONFERENCE_GALLERY;
+  }, [filter]);
+
+  const total = items.length;
+  const safeIdx = index < total ? index : 0;
+  const active = items[safeIdx] ?? items[0];
+
+  const go = (nextIdx: number, byUser = false) => {
+    if (total === 0) return;
     const wrapped = ((nextIdx % total) + total) % total;
-    setDirection(nextIdx >= index ? 1 : -1);
+    setDirection(nextIdx >= safeIdx ? 1 : -1);
     setIndex(wrapped);
+    if (byUser) setUserLocked(true);
   };
+
+  // Automatic 3-second progression unless user selects a specific image or pauses
+  useEffect(() => {
+    if (userLocked || lightboxOpen || reducedMotion || total <= 1) return;
+    const timer = window.setInterval(() => {
+      setDirection(1);
+      setIndex((prev) => (prev + 1) % total);
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, [userLocked, lightboxOpen, reducedMotion, total]);
+
+  // Keep active desktop thumbnail scrolled into horizontal view without affecting page scroll
+  useEffect(() => {
+    const rail = thumbRailRef.current;
+    if (!rail) return;
+    const activeBtn = rail.children[safeIdx] as HTMLElement | undefined;
+    if (!activeBtn) return;
+    const targetLeft =
+      activeBtn.offsetLeft - rail.clientWidth / 2 + activeBtn.clientWidth / 2;
+    rail.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+  }, [safeIdx]);
 
   useEffect(() => {
     if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setLightboxOpen(false);
-      else if (e.key === 'ArrowRight') go(index + 1);
-      else if (e.key === 'ArrowLeft') go(index - 1);
+      else if (e.key === 'ArrowRight') go(safeIdx + 1, true);
+      else if (e.key === 'ArrowLeft') go(safeIdx - 1, true);
     };
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -32,7 +76,14 @@ export const ConferenceCarousel: React.FC = () => {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', onKey);
     };
-  }, [lightboxOpen, index]);
+  }, [lightboxOpen, safeIdx, total]);
+
+  const handleFilterChange = (nextFilter: EventFilter) => {
+    setFilter(nextFilter);
+    setIndex(0);
+    setDirection(1);
+    setUserLocked(false);
+  };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     const t = e.touches[0];
@@ -45,9 +96,9 @@ export const ConferenceCarousel: React.FC = () => {
     const dx = t.clientX - touchStartRef.current.x;
     const dy = t.clientY - touchStartRef.current.y;
     touchStartRef.current = null;
-    if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) {
-      if (dx < 0) go(index + 1);
-      else go(index - 1);
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+      if (dx < 0) go(safeIdx + 1, true);
+      else go(safeIdx - 1, true);
     }
   };
 
@@ -57,21 +108,47 @@ export const ConferenceCarousel: React.FC = () => {
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-3">
           <div>
             <span className="font-mono-tech text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--accent-signal)] sm:text-[11px]">
-              Conferences &amp; Poster Sessions • Field Record
+              Conferences &amp; Field Photography • {CONFERENCE_GALLERY.length} Photos
             </span>
             <h3 className="font-serif-display mt-0.5 text-lg font-medium text-[var(--ink-primary)] sm:text-2xl">
               Research Presented on Stage &amp; Poster Floors
             </h3>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Auto-advance 3s / Locked status toggle */}
+            <button
+              type="button"
+              onClick={() => setUserLocked((v) => !v)}
+              aria-pressed={!userLocked}
+              title={userLocked ? 'Resume 3s auto-play' : 'Auto-playing every 3s'}
+              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 font-mono-tech text-[10px] font-medium transition-colors ${
+                !userLocked
+                  ? 'border-[var(--accent-signal-ring)] bg-[var(--accent-signal-soft)] text-[var(--accent-signal)]'
+                  : 'border-[var(--border-hairline)] bg-[var(--bg-subtle)] text-[var(--ink-muted)] hover:text-[var(--ink-primary)]'
+              }`}
+            >
+              {userLocked ? (
+                <>
+                  <Play className="h-3 w-3" aria-hidden="true" />
+                  Auto 3s
+                </>
+              ) : (
+                <>
+                  <Pause className="h-3 w-3" aria-hidden="true" />
+                  3s Live
+                </>
+              )}
+            </button>
+
             <span className="font-mono-tech text-xs font-semibold text-[var(--ink-secondary)]">
-              {index + 1} / {total}
+              {safeIdx + 1} / {total}
             </span>
+
             <div className="flex items-center gap-1">
               <button
                 type="button"
-                onClick={() => go(index - 1)}
+                onClick={() => go(safeIdx - 1, true)}
                 aria-label="Previous conference photograph"
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-hairline)] bg-[var(--bg-subtle)] text-[var(--ink-primary)] transition-colors hover:border-[var(--accent-signal)] hover:text-[var(--accent-signal)] md:h-9 md:w-9"
               >
@@ -79,7 +156,7 @@ export const ConferenceCarousel: React.FC = () => {
               </button>
               <button
                 type="button"
-                onClick={() => go(index + 1)}
+                onClick={() => go(safeIdx + 1, true)}
                 aria-label="Next conference photograph"
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-hairline)] bg-[var(--bg-subtle)] text-[var(--ink-primary)] transition-colors hover:border-[var(--accent-signal)] hover:text-[var(--accent-signal)] md:h-9 md:w-9"
               >
@@ -89,16 +166,58 @@ export const ConferenceCarousel: React.FC = () => {
           </div>
         </div>
 
+        {/* Event Filter Row */}
+        <div className="no-scrollbar mb-4 flex items-center justify-between gap-3 overflow-x-auto pb-0.5">
+          <div className="flex shrink-0 items-center gap-1.5">
+            {[
+              { id: 'all' as EventFilter, label: `All (${CONFERENCE_GALLERY.length})` },
+              {
+                id: 'interspeech' as EventFilter,
+                label: `INTERSPEECH 2025 (${CONFERENCE_GALLERY.filter((c) => c.eventKey === 'interspeech-2025').length})`,
+              },
+              {
+                id: 'eusipco' as EventFilter,
+                label: `EUSIPCO 2024 (${CONFERENCE_GALLERY.filter((c) => c.eventKey === 'eusipco-2024').length})`,
+              },
+            ].map((tab) => {
+              const isSelected = filter === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => handleFilterChange(tab.id)}
+                  className={`shrink-0 rounded-full border px-3 py-1 font-mono-tech text-[10.5px] font-medium transition-colors ${
+                    isSelected
+                      ? 'border-[var(--accent-signal)] bg-[var(--accent-signal)] text-[var(--btn-primary-fg)]'
+                      : 'border-[var(--border-hairline)] bg-[var(--bg-subtle)] text-[var(--ink-secondary)] hover:border-[var(--accent-signal)]'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <a
+            href={PROFILE.links.researchJournal}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden shrink-0 items-center gap-1 font-mono-tech text-[11px] font-medium text-[var(--accent-signal)] hover:underline sm:inline-flex"
+          >
+            Research Journal
+            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+        </div>
+
         {/* Desktop Split & Mobile Swipeable Gallery */}
         <div className="grid gap-4 lg:grid-cols-12 lg:items-center lg:gap-6">
-          {/* Interactive Photo Stage with Soft Ambient Fill + Exact Aspect Ratio (0% Face Distortion) */}
+          {/* Photo Stage */}
           <div className="lg:col-span-7">
             <div
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
               className="surface-instrument group relative aspect-[4/3] w-full touch-pan-y select-none overflow-hidden rounded-xl sm:aspect-[16/10]"
             >
-              {/* Soft Ambient Fill Layer for mixed 3:4 / 4:3 photography */}
               <img
                 src={active.src}
                 alt=""
@@ -114,49 +233,40 @@ export const ConferenceCarousel: React.FC = () => {
                 initial={{ opacity: 0.35, x: direction * 20, scale: 0.985 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                onClick={() => setLightboxOpen(true)}
+                onClick={() => {
+                  setUserLocked(true);
+                  setLightboxOpen(true);
+                }}
                 className="relative z-10 mx-auto h-full w-auto max-w-full cursor-zoom-in object-contain transition-transform duration-300 group-hover:scale-[1.015]"
               />
 
-              {/* Top Overlay Pill & Expand Button */}
               <div className="pointer-events-none absolute inset-x-3 top-3 z-20 flex items-center justify-between">
                 <span className="rounded-full border border-white/15 bg-black/55 px-2.5 py-1 font-mono-tech text-[10px] font-medium text-white backdrop-blur-md">
                   {active.year} • {active.location}
                 </span>
                 <button
                   type="button"
-                  onClick={() => setLightboxOpen(true)}
+                  onClick={() => {
+                    setUserLocked(true);
+                    setLightboxOpen(true);
+                  }}
                   aria-label="Enlarge photograph"
                   className="pointer-events-auto inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/55 text-white backdrop-blur-md transition-colors hover:border-[#2DD4BF] hover:text-[#2DD4BF]"
                 >
                   <Expand className="h-3.5 w-3.5" aria-hidden="true" />
                 </button>
               </div>
-
-              {/* Mobile Swipe Indicator Hint Pill */}
-              <div className="pointer-events-none absolute bottom-2.5 left-1/2 z-20 -translate-x-1/2 md:hidden">
-                <div className="flex items-center gap-1.5 rounded-full border border-white/15 bg-black/55 px-2.5 py-1 backdrop-blur-md">
-                  {CONFERENCE_GALLERY.map((item, idx) => (
-                    <span
-                      key={item.id}
-                      className={`block rounded-full transition-all ${
-                        idx === index ? 'h-1.5 w-4 bg-[#2DD4BF]' : 'h-1.5 w-1.5 bg-white/45'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
 
-          {/* Caption, Metadata & Desktop Thumbnail Strip */}
-          <div className="flex flex-col justify-between gap-4 lg:col-span-5">
+          {/* Caption, Metadata & Scrollable Thumbnail Rail */}
+          <div className="flex min-w-0 flex-col justify-between gap-4 lg:col-span-5">
             <motion.div
               key={active.id}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.22 }}
-              className="rounded-xl border border-[var(--border-hairline)] bg-[var(--bg-subtle)] p-4"
+              transition={{ duration: 0.2 }}
+              className="surface-subtle rounded-xl p-4"
             >
               <div className="flex flex-wrap items-center justify-between gap-2 font-mono-tech text-[10px] font-semibold uppercase tracking-wider text-[var(--accent-signal)]">
                 <span>{active.event}</span>
@@ -174,7 +284,7 @@ export const ConferenceCarousel: React.FC = () => {
                 {active.role}
               </div>
 
-              <div className="mt-3 flex flex-wrap gap-1.5">
+              <div className="mt-3 flex flex-wrap items-center gap-1.5">
                 {active.tags.map((tag) => (
                   <span
                     key={tag}
@@ -183,25 +293,39 @@ export const ConferenceCarousel: React.FC = () => {
                     {tag}
                   </span>
                 ))}
+                <a
+                  href={active.journalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-auto inline-flex items-center gap-0.5 font-mono-tech text-[10px] font-semibold text-[var(--accent-signal)] hover:underline"
+                >
+                  Journal
+                  <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                </a>
               </div>
             </motion.div>
 
-            {/* Desktop Interactive Thumbnail Strip */}
-            <div className="hidden grid-cols-6 gap-2 md:grid" role="tablist" aria-label="Conference photographs">
-              {CONFERENCE_GALLERY.map((item, idx) => {
-                const isSelected = idx === index;
+            {/* Horizontal Thumbnail Strip for all photos */}
+            <div
+              ref={thumbRailRef}
+              className="no-scrollbar flex gap-2 overflow-x-auto pb-1"
+              role="tablist"
+              aria-label="Conference photographs"
+            >
+              {items.map((item, idx) => {
+                const isSelected = idx === safeIdx;
                 return (
                   <button
                     key={item.id}
                     type="button"
                     role="tab"
                     aria-selected={isSelected}
-                    aria-label={`View ${item.event}`}
-                    onClick={() => go(idx)}
-                    className={`group relative aspect-square overflow-hidden rounded-lg border transition-all ${
+                    aria-label={`View ${item.event} (${idx + 1}/${total})`}
+                    onClick={() => go(idx, true)}
+                    className={`group relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border transition-all sm:h-16 sm:w-16 ${
                       isSelected
                         ? 'border-[var(--accent-signal)] ring-2 ring-[var(--accent-signal-ring)]'
-                        : 'border-[var(--border-hairline)] opacity-65 hover:opacity-100'
+                        : 'border-[var(--border-hairline)] opacity-60 hover:opacity-100'
                     }`}
                   >
                     <img
@@ -218,7 +342,7 @@ export const ConferenceCarousel: React.FC = () => {
         </div>
       </div>
 
-      {/* Lightbox Modal for Crisp Enlarged View */}
+      {/* Lightbox Modal */}
       {lightboxOpen && (
         <div
           role="dialog"
@@ -233,12 +357,12 @@ export const ConferenceCarousel: React.FC = () => {
           >
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="font-mono-tech text-xs text-[#2DD4BF]">
-                {active.event} • {index + 1}/{total}
+                {active.event} • {safeIdx + 1}/{total}
               </div>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => go(index - 1)}
+                  onClick={() => go(safeIdx - 1, true)}
                   aria-label="Previous photo"
                   className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-white hover:border-[#2DD4BF]"
                 >
@@ -246,7 +370,7 @@ export const ConferenceCarousel: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => go(index + 1)}
+                  onClick={() => go(safeIdx + 1, true)}
                   aria-label="Next photo"
                   className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-white hover:border-[#2DD4BF]"
                 >
